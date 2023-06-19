@@ -16,15 +16,21 @@ export default function Footer() {
               textDecoration: "none",
             }}
           >
-            <Typography variant="body2" color={"GrayText"}>
+            <Typography variant="body2" color={"text.disabled"}>
               © {new Date().getFullYear()} flixlix
             </Typography>
           </Link>
           <Stack direction={"row"} spacing={1} alignItems={"center"}>
-            <Typography variant="body2" color={"GrayText"}>
+            <Typography variant="body2" color={"text.disabled"}>
               View Source Code on GitHub
             </Typography>
-            <IconButton href="https://github.com/flixlix/best-of-home-assistant" target="_blank">
+            <IconButton
+              href="https://github.com/flixlix/best-of-home-assistant"
+              target="_blank"
+              sx={{
+                color: "text.disabled",
+              }}
+            >
               <GitHub />
             </IconButton>
           </Stack>

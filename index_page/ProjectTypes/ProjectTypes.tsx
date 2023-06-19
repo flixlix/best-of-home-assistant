@@ -8,7 +8,7 @@ import DevicesOtherOutlinedIcon from "@mui/icons-material/DevicesOtherOutlined";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import BrushOutlinedIcon from "@mui/icons-material/BrushOutlined";
 import ColorLensOutlinedIcon from "@mui/icons-material/ColorLensOutlined";
-import theme from "@/styles/theme";
+import { theme } from "@/styles/theme";
 import axios from "axios";
 
 export default function ProjectTypes() {
@@ -16,44 +16,6 @@ export default function ProjectTypes() {
   const columnWidthMd = 6;
   const [repoNames, setRepoNames] = React.useState([]);
   const [repoData, setRepoData] = React.useState<string[]>([]);
-
-  // fetch data from file in github repo
-  async function getRepoNames() {
-    await axios
-      .get("https://raw.githubusercontent.com/hacs/default/master/plugin")
-      .catch((err) => {
-        console.error(err);
-      })
-      .then((res) => {
-        setRepoNames(res?.data);
-      });
-  }
-
-  async function getRepoData(repoName: string) {
-    await axios
-      .get(`https://api.github.com/repos/${repoName}`)
-      .catch((err) => {
-        console.error(err);
-      })
-      .then((res) => {
-        setRepoData((repoData) => repoData.concat(res?.data));
-      });
-  }
-
-  useEffect(() => {
-    getRepoNames();
-  }, []);
-
-  useEffect(() => {
-    console.log(repoNames);
-    /* repoNames.forEach((repoName) => {
-      getRepoData(repoName);
-    }); */
-  }, [repoNames]);
-
-  useEffect(() => {
-    console.log(repoData);
-  }, [repoData]);
 
   return (
     <PageContainer>

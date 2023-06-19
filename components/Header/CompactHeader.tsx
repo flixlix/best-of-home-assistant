@@ -5,8 +5,9 @@ import { Button, Drawer, IconButton, Menu, MenuItem, Stack, Typography } from "@
 import Link from "next/link";
 import Image from "next/image";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import theme from "@/styles/theme";
+
 import { Close } from "@mui/icons-material";
+import { theme } from "@/styles/theme";
 
 export default function CompactHeader({ title, acitveLinkIndex, navigationLinks, headerRef }: HeaderContentProps) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);

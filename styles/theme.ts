@@ -1,5 +1,8 @@
 import { Roboto } from "next/font/google";
 import { createTheme } from "@mui/material/styles";
+import { PaletteMode } from "@mui/material";
+import { amber, blue, deepOrange, grey } from "@mui/material/colors";
+import React from "react";
 
 export const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -10,8 +13,43 @@ export const roboto = Roboto({
 
 const borderRadius = 12;
 export const headerHeight = 64;
+
 // Create a theme instance.
-const theme = createTheme({
+
+const getDesignTokens = (mode?: PaletteMode) => ({
+  palette: {
+    mode,
+    ...(mode === "dark" && {
+      background: {
+        default: "#171717",
+        paper: "#222222",
+      },
+      text: {
+        primary: "#ffffff",
+        secondary: "#f5f5f5",
+        disabled: "#c0c0c0",
+      },
+    }),
+  },
+  components: {
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: borderRadius,
+          borderColor: mode === "dark" ? "#073D62" : "#D9EDFB",
+          boxShadow: "none",
+          transition: "box-shadow .4s",
+          "&:hover": {
+            borderColor: "#049cdb",
+            boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+          },
+        },
+      },
+    },
+  },
+});
+
+export const theme = createTheme({
   palette: {
     primary: {
       main: "#049cdb",
@@ -77,9 +115,11 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: borderRadius,
+          borderColor: "#D9EDFB",
           boxShadow: "none",
           transition: "box-shadow .4s",
           "&:hover": {
+            borderColor: "#049cdb",
             boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
           },
         },
@@ -132,7 +172,6 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: borderRadius,
-
           height: "56px",
           backgroundColor: "#ffffff",
         },
@@ -141,4 +180,9 @@ const theme = createTheme({
   },
 });
 
-export default theme;
+function getTheme(mode?: PaletteMode) {
+  console.log(mode);
+  return createTheme(theme, getDesignTokens(mode));
+}
+
+export default getTheme;

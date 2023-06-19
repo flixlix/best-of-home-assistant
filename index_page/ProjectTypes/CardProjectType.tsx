@@ -12,15 +12,12 @@ export default function CardProjectType({ title = "Title", description = "Descri
     <Card
       variant="outlined"
       sx={{
-        borderColor: "primary.100",
         transition: "all 0.2s ease-in-out",
         borderWidth: 2,
         alignItems: "center",
         justifyContent: "center",
+        boxSizing: "border-box",
 
-        "&:hover": {
-          borderColor: "primary.main",
-        },
       }}
     >
       <CardActionArea>

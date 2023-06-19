@@ -1,13 +1,15 @@
 import PageContainer from "@/layout/PageContainer";
 import theme, { headerHeight } from "@/styles/theme";
 
-import { Box, Button, Paper, Stack, Typography, useScrollTrigger } from "@mui/material";
+import { Box, Button, IconButton, PaletteMode, Paper, Stack, Typography, useScrollTrigger } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import CompactHeader from "./CompactHeader";
+
+import { DarkModeOutlined, LightModeOutlined } from "@mui/icons-material";
 
 // add drop-shadow to header when scrolling
 
@@ -45,6 +47,8 @@ interface HeaderProps {
   children?: React.ReactElement;
   acitveMainLink?: boolean;
   isInIndex?: boolean;
+  toggleTheme: () => void;
+  currTheme: PaletteMode;
 }
 
 type HeaderLink = {
@@ -57,9 +61,25 @@ export interface HeaderContentProps {
   title?: string;
   navigationLinks?: HeaderLink[];
   headerRef?: React.RefObject<HTMLDivElement>;
+  toggleTheme?: () => void;
+  currTheme?: PaletteMode;
+}
+
+interface ThemeSwitcherProps {
+  toggleTheme?: () => void;
+  currTheme?: PaletteMode;
+}
+
+function ThemeSwitcher({ toggleTheme, currTheme }: ThemeSwitcherProps) {
+  return (
+    <IconButton aria-label="Toggle dark mode" onClick={toggleTheme} color="primary">
+      {currTheme === "dark" ? <LightModeOutlined /> : <DarkModeOutlined />}
+    </IconButton>
+  );
 }
 
 export default function Header(props: HeaderProps) {
+  const { currTheme, toggleTheme } = props;
   const router = useRouter();
   const isWideEnough = useMediaQuery("(min-width:600px)");
   const title = "Best of Home Assistant";
@@ -83,7 +103,6 @@ export default function Header(props: HeaderProps) {
       title: "Themes",
     },
   ];
-
   return (
     <ElevationScroll window={props.window} isWideEnough={isWideEnough}>
       <Paper ref={headerRef}>
@@ -95,14 +114,20 @@ export default function Header(props: HeaderProps) {
             headerRef={headerRef}
           />
         ) : (
-          <DesktopHeader title={title} acitveLinkIndex={currentLinkIndex} navigationLinks={links} />
+          <DesktopHeader
+            title={title}
+            acitveLinkIndex={currentLinkIndex}
+            navigationLinks={links}
+            currTheme={currTheme}
+            toggleTheme={toggleTheme}
+          />
         )}
       </Paper>
     </ElevationScroll>
   );
 }
 
-function DesktopHeader({ title, acitveLinkIndex, navigationLinks }: HeaderContentProps) {
+function DesktopHeader({ title, acitveLinkIndex, navigationLinks, currTheme, toggleTheme }: HeaderContentProps) {
   return (
     <PageContainer
       style={{
@@ -143,6 +168,7 @@ function DesktopHeader({ title, acitveLinkIndex, navigationLinks }: HeaderConten
               {link.title}
             </Button>
           ))}
+          <ThemeSwitcher currTheme={currTheme} toggleTheme={toggleTheme} />
         </Stack>
       </Stack>
     </PageContainer>
