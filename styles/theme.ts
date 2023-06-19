@@ -181,7 +181,6 @@ export const theme = createTheme({
 });
 
 function getTheme(mode?: PaletteMode) {
-  console.log(mode);
   return createTheme(theme, getDesignTokens(mode));
 }
 

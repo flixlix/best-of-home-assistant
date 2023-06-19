@@ -33,11 +33,8 @@ export default function App({ Component, pageProps }: AppProps) {
     return await res.json();
   };
 
-  const { data } = useSWR(`/api/views/${slug === "/" ? "home" : slug}`, fetcher);
-
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
-  /* create theme mode context */
-  console.log(prefersDarkMode);
+
   const [themeMode, setThemeMode] = useState<"light" | "dark">(prefersDarkMode ? "dark" : "light");
   useEffect(() => {
     if (prefersDarkMode) {
@@ -58,7 +55,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <title>Best of Home Assistant</title>
         <meta name="description" content="This is a website to showcase the best of Home Assistant" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.png" />
       </Head>
       <ThemeProvider theme={theme}>
         <Box
