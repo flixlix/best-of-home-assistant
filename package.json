@@ -21,6 +21,8 @@
     "@types/react-dom": "18.2.5",
     "axios": "^1.4.0",
     "eslint-config-next": "13.4.6",
+    "fuse": "^0.4.0",
+    "fuse.js": "^6.6.2",
     "immer": "^9.0.19",
     "lodash": "^4.17.21",
     "next": "13.4.6",
@@ -31,6 +33,7 @@
     "zustand": "^4.3.9"
   },
   "devDependencies": {
+    "@types/fuse": "^2.6.0",
     "@types/lodash": "^4.14.195",
     "eslint": "^8.44.0",
     "eslint-plugin-unused-imports": "^2.0.0"

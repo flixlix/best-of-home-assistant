@@ -11,16 +11,16 @@ import FilterSearch from "@/components/FilterSearch/FilterSearch";
 import Pagination from "@/components/Pagination/Pagination";
 import HeadingPage from "@/components/HeadingPage/HeadingPage";
 
-export default function Integrations({
+export default function Themes({
   toggleTheme,
   currTheme,
-  integrations,
+  themes,
   count,
   fetchError,
 }: {
   toggleTheme: () => void;
   currTheme: PaletteMode;
-  integrations: Project[];
+  themes: Project[];
   count: number;
   fetchError?: string;
 }) {
@@ -38,25 +38,25 @@ export default function Integrations({
     }
   }, [fetchError, setAlert]);
 
-  const [paginatedIntegrations, setPaginatedIntegrations] = React.useState(integrations);
+  const [paginatedThemes, setPaginatedThemes] = React.useState(themes);
 
   const [page, setPage] = React.useState(1);
 
-  const [filteredIntegrations, setFilteredIntegrations] = React.useState(paginatedIntegrations);
+  const [filteredThemes, setFilteredThemes] = React.useState(paginatedThemes);
   useEffect(() => {
-    setPagesNumber(Math.ceil(filteredIntegrations.length / itemsPerPage));
+    setPagesNumber(Math.ceil(filteredThemes.length / itemsPerPage));
     setPage(1);
-  }, [filteredIntegrations, itemsPerPage]);
+  }, [filteredThemes, itemsPerPage]);
 
   useEffect(() => {
     const start = (page - 1) * itemsPerPage;
     const end = start + itemsPerPage;
-    setPaginatedIntegrations(filteredIntegrations.slice(start, end));
-  }, [page, filteredIntegrations, itemsPerPage]);
+    setPaginatedThemes(filteredThemes.slice(start, end));
+  }, [page, filteredThemes, itemsPerPage]);
 
   return (
     <Stack gap={2}>
-      <Header toggleTheme={toggleTheme} currTheme={currTheme} currentLinkIndex={0} />
+      <Header toggleTheme={toggleTheme} currTheme={currTheme} currentLinkIndex={3} />
       <PageContainer
         sx={{
           display: "flex",
@@ -65,11 +65,11 @@ export default function Integrations({
         }}
       >
         <HeadingPage
-          title={"Integrations"}
-          subtitle={"Extend Home Assistant's functionality with additional devices/services"}
+          title={"Themes"}
+          subtitle={"Customize the look and feel of your Home Assistant UI with these themes"}
           count={count}
         />
-        <FilterSearch projects={integrations} setFilteredProjects={setFilteredIntegrations} />
+        <FilterSearch projects={themes} setFilteredProjects={setFilteredThemes} />
         <Grid
           container
           spacing={2}
@@ -79,7 +79,7 @@ export default function Integrations({
             md: 3,
           }}
         >
-          {paginatedIntegrations.map((integration) => (
+          {paginatedThemes.map((integration) => (
             <Grid item key={integration.id} xs={1}>
               <CustomCardProject project={integration} />
             </Grid>
@@ -102,10 +102,10 @@ export default function Integrations({
 
 export async function getStaticProps() {
   const {
-    data: integrations,
+    data: themes,
     count,
     error,
-  } = await supabase.from("best-of-list").select("*", { count: "exact" }).eq("category", "integration");
+  } = await supabase.from("best-of-list").select("*", { count: "exact" }).eq("category", "theme");
 
   if (error) {
     console.error("Error fetching data from Supabase:", error);
@@ -117,7 +117,7 @@ export async function getStaticProps() {
   }
   return {
     props: {
-      integrations,
+      themes,
       count,
     },
   };

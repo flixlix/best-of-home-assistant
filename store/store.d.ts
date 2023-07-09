@@ -7,14 +7,14 @@ export type CustomAlert = {
   duration?: number;
 };
 
-export type Theme = "light" | "dark";
+export type Theme = "light" | "dark" ;
 
 export type BestOfHAStore = {
   // state
   alert: CustomAlert;
   theme: Theme;
   // functions
-  setAlert: (alert: CustomAlert) => void;
-  setTheme: (theme: Theme) => void;
+  setAlert: (_alert: CustomAlert) => void;
+  setTheme: (_theme: Theme) => void;
   purge: () => void;
 };

@@ -1,3 +1,4 @@
+import { theme } from "@/styles/theme";
 import { Container, ContainerProps } from "@mui/material";
 import React from "react";
 

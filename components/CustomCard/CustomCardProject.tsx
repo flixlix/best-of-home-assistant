@@ -15,7 +15,18 @@ export default function CustomCardProject({ project }: CustomCardProjectProps) {
       : project.name.replace("integration", "");
   return (
     <CustomCardBase href={project.github_url} openNewTab height={130} topChildren={<Badges project={project} />}>
-      <Typography variant="h5">{name}</Typography>
+      <Typography
+        variant="h5"
+        sx={{
+          textOverflow: "ellipsis",
+          overflow: "hidden",
+          display: "-webkit-box",
+          WebkitLineClamp: 1,
+          WebkitBoxOrient: "vertical",
+        }}
+      >
+        {name}
+      </Typography>
       <Typography
         variant="body2"
         color={"grey.800"}

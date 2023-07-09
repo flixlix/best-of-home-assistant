@@ -1,5 +1,5 @@
 export type Project = {
-    githu_id: string;
+    github_id: string;
     id: number;
     name: string;
     description: string;

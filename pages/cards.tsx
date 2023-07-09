@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import supabase from "@supabase";
-import { Grid, PaletteMode, Stack } from "@mui/material";
+import { Grid, PaletteMode, Stack, Typography } from "@mui/material";
 import { useMyStore } from "@/store/store";
 import Header from "@/components/Header/Header";
 import PageContainer from "@/layout/PageContainer";
@@ -11,16 +11,16 @@ import FilterSearch from "@/components/FilterSearch/FilterSearch";
 import Pagination from "@/components/Pagination/Pagination";
 import HeadingPage from "@/components/HeadingPage/HeadingPage";
 
-export default function Integrations({
+export default function Cards({
   toggleTheme,
   currTheme,
-  integrations,
+  cards,
   count,
   fetchError,
 }: {
   toggleTheme: () => void;
   currTheme: PaletteMode;
-  integrations: Project[];
+  cards: Project[];
   count: number;
   fetchError?: string;
 }) {
@@ -38,25 +38,25 @@ export default function Integrations({
     }
   }, [fetchError, setAlert]);
 
-  const [paginatedIntegrations, setPaginatedIntegrations] = React.useState(integrations);
+  const [paginatedCards, setPaginatedCards] = React.useState(cards);
 
   const [page, setPage] = React.useState(1);
 
-  const [filteredIntegrations, setFilteredIntegrations] = React.useState(paginatedIntegrations);
+  const [filteredCards, setFilteredCards] = React.useState(paginatedCards);
   useEffect(() => {
-    setPagesNumber(Math.ceil(filteredIntegrations.length / itemsPerPage));
+    setPagesNumber(Math.ceil(filteredCards.length / itemsPerPage));
     setPage(1);
-  }, [filteredIntegrations, itemsPerPage]);
+  }, [filteredCards, itemsPerPage]);
 
   useEffect(() => {
     const start = (page - 1) * itemsPerPage;
     const end = start + itemsPerPage;
-    setPaginatedIntegrations(filteredIntegrations.slice(start, end));
-  }, [page, filteredIntegrations, itemsPerPage]);
+    setPaginatedCards(filteredCards.slice(start, end));
+  }, [page, filteredCards, itemsPerPage]);
 
   return (
     <Stack gap={2}>
-      <Header toggleTheme={toggleTheme} currTheme={currTheme} currentLinkIndex={0} />
+      <Header toggleTheme={toggleTheme} currTheme={currTheme} currentLinkIndex={1} />
       <PageContainer
         sx={{
           display: "flex",
@@ -65,11 +65,11 @@ export default function Integrations({
         }}
       >
         <HeadingPage
-          title={"Integrations"}
-          subtitle={"Extend Home Assistant's functionality with additional devices/services"}
+          title={"Cards"}
+          subtitle={"Customize the look and feel of your Home Assistant UI with these Lovelace cards"}
           count={count}
         />
-        <FilterSearch projects={integrations} setFilteredProjects={setFilteredIntegrations} />
+        <FilterSearch projects={cards} setFilteredProjects={setFilteredCards} />
         <Grid
           container
           spacing={2}
@@ -79,7 +79,7 @@ export default function Integrations({
             md: 3,
           }}
         >
-          {paginatedIntegrations.map((integration) => (
+          {paginatedCards.map((integration) => (
             <Grid item key={integration.id} xs={1}>
               <CustomCardProject project={integration} />
             </Grid>
@@ -102,10 +102,10 @@ export default function Integrations({
 
 export async function getStaticProps() {
   const {
-    data: integrations,
+    data: cards,
     count,
     error,
-  } = await supabase.from("best-of-list").select("*", { count: "exact" }).eq("category", "integration");
+  } = await supabase.from("best-of-list").select("*", { count: "exact" }).eq("category", "plugin");
 
   if (error) {
     console.error("Error fetching data from Supabase:", error);
@@ -117,7 +117,7 @@ export async function getStaticProps() {
   }
   return {
     props: {
-      integrations,
+      cards,
       count,
     },
   };

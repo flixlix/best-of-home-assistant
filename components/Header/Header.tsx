@@ -1,13 +1,15 @@
 import PageContainer from "@/layout/PageContainer";
-import { Button, IconButton, PaletteMode, Paper, Stack, Typography, useScrollTrigger } from "@mui/material";
+import { Button, IconButton, PaletteMode, Paper, Stack, SvgIcon, Typography, useScrollTrigger } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 // import { useRouter } from "next/router";
+import Logo from "./HALogo";
 import React from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import CompactHeader from "./CompactHeader";
 
 import { DarkModeOutlined, LightModeOutlined } from "@mui/icons-material";
+import HALogo from "./HALogo";
 
 // add drop-shadow to header when scrolling
 
@@ -44,7 +46,8 @@ interface HeaderProps {
   window?: () => Window;
   children?: React.ReactElement;
   acitveMainLink?: boolean;
-  isInIndex?: boolean;
+  isInIndex?: number;
+  currentLinkIndex?: number;
   toggleTheme: () => void;
   currTheme: PaletteMode;
 }
@@ -77,45 +80,47 @@ function ThemeSwitcher({ toggleTheme, currTheme }: ThemeSwitcherProps) {
 }
 
 export default function Header(props: HeaderProps) {
-  const { currTheme, toggleTheme } = props;
+  const { currTheme, toggleTheme, currentLinkIndex } = props;
   // const router = useRouter();
-  const isWideEnough = useMediaQuery("(min-width:600px)");
+  const isWideEnough = useMediaQuery("(min-width:600px)", {
+    defaultMatches: true,
+  });
   const title = "Best of Home Assistant";
   // const [currentLinkIndex, setCurrentLinkIndex] = React.useState(-1);
   const headerRef = React.useRef<HTMLDivElement>(null);
   const links: HeaderLink[] = [
     {
-      href: "/",
+      href: "/integrations",
       title: "Integrations",
     },
     {
-      href: "/",
+      href: "/cards",
       title: "Cards",
     },
     {
-      href: "/",
+      href: "/scripts",
       title: "Scripts",
     },
     {
-      href: "/",
+      href: "/themes",
       title: "Themes",
     },
   ];
   return (
     <ElevationScroll window={props.window} isWideEnough={isWideEnough}>
       <Paper ref={headerRef}>
-        {!isWideEnough ? (
+        {isWideEnough === false ? (
           <CompactHeader
             title={title}
             toggleTheme={() => toggleTheme()}
-            // acitveLinkIndex={currentLinkIndex}
+            acitveLinkIndex={currentLinkIndex}
             navigationLinks={links}
             headerRef={headerRef}
           />
         ) : (
           <DesktopHeader
             title={title}
-            // acitveLinkIndex={currentLinkIndex}
+            acitveLinkIndex={currentLinkIndex}
             navigationLinks={links}
             currTheme={currTheme}
             toggleTheme={toggleTheme}
@@ -142,15 +147,7 @@ function DesktopHeader({ title, acitveLinkIndex, navigationLinks, currTheme, tog
           }}
         >
           <Stack flexDirection={"row"} alignItems={"center"} gap={2}>
-            <Image
-              src="/ha_logo.svg"
-              alt={title || "Best of Home Assistant"}
-              width={40}
-              height={40}
-              style={{
-                borderRadius: "5px",
-              }}
-            />
+            <HALogo />
             <Typography variant="h5" component="h1">
               {title}
             </Typography>
@@ -160,8 +157,10 @@ function DesktopHeader({ title, acitveLinkIndex, navigationLinks, currTheme, tog
           {navigationLinks?.map((link, index) => (
             <Button
               key={link.title}
+              href={link.href}
               sx={{
-                boxShadow: acitveLinkIndex === index ? "0 0 10px rgba(0, 0, 0, 0.2)" : "none",
+                boxShadow:
+                  acitveLinkIndex !== undefined && acitveLinkIndex === index ? "0 0 10px rgba(0, 0, 0, 0.2)" : "none",
               }}
             >
               {link.title}

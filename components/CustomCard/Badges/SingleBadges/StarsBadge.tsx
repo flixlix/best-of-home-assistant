@@ -1,6 +1,6 @@
 import React from "react";
 import SingleBadge from "./SingleBadge";
-import { Star } from "@mui/icons-material";
+import { Star, StarOutline, StarOutlined } from "@mui/icons-material";
 import { Typography } from "@mui/material";
 
 interface StarsBadgeProps {
@@ -9,16 +9,22 @@ interface StarsBadgeProps {
 
 export default function StarsBadge({ stars }: StarsBadgeProps) {
   return (
-    <SingleBadge
-      number={stars ?? 0}
-      icon={
-        <Star
-          fontSize="small"
-          sx={{
-            color: "#FFD700",
-          }}
-        />
-      }
-    />
+    stars > 0 && (
+      <SingleBadge
+        number={stars ?? 0}
+        icon={
+          <StarOutline
+            fontSize="small"
+            sx={{
+              strokeWidth: 0.3,
+              strokeLinecap: "round",
+              strokeMiterlimit: 10,
+              stroke: "#FFD700",
+              color: "#FFD700",
+            }}
+          />
+        }
+      />
+    )
   );
 }

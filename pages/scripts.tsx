@@ -11,16 +11,16 @@ import FilterSearch from "@/components/FilterSearch/FilterSearch";
 import Pagination from "@/components/Pagination/Pagination";
 import HeadingPage from "@/components/HeadingPage/HeadingPage";
 
-export default function Integrations({
+export default function Scripts({
   toggleTheme,
   currTheme,
-  integrations,
+  scripts,
   count,
   fetchError,
 }: {
   toggleTheme: () => void;
   currTheme: PaletteMode;
-  integrations: Project[];
+  scripts: Project[];
   count: number;
   fetchError?: string;
 }) {
@@ -38,25 +38,25 @@ export default function Integrations({
     }
   }, [fetchError, setAlert]);
 
-  const [paginatedIntegrations, setPaginatedIntegrations] = React.useState(integrations);
+  const [paginatedScripts, setPaginatedScripts] = React.useState(scripts);
 
   const [page, setPage] = React.useState(1);
 
-  const [filteredIntegrations, setFilteredIntegrations] = React.useState(paginatedIntegrations);
+  const [filteredScripts, setFilteredScripts] = React.useState(paginatedScripts);
   useEffect(() => {
-    setPagesNumber(Math.ceil(filteredIntegrations.length / itemsPerPage));
+    setPagesNumber(Math.ceil(filteredScripts.length / itemsPerPage));
     setPage(1);
-  }, [filteredIntegrations, itemsPerPage]);
+  }, [filteredScripts, itemsPerPage]);
 
   useEffect(() => {
     const start = (page - 1) * itemsPerPage;
     const end = start + itemsPerPage;
-    setPaginatedIntegrations(filteredIntegrations.slice(start, end));
-  }, [page, filteredIntegrations, itemsPerPage]);
+    setPaginatedScripts(filteredScripts.slice(start, end));
+  }, [page, filteredScripts, itemsPerPage]);
 
   return (
     <Stack gap={2}>
-      <Header toggleTheme={toggleTheme} currTheme={currTheme} currentLinkIndex={0} />
+      <Header toggleTheme={toggleTheme} currTheme={currTheme} currentLinkIndex={2} />
       <PageContainer
         sx={{
           display: "flex",
@@ -65,11 +65,11 @@ export default function Integrations({
         }}
       >
         <HeadingPage
-          title={"Integrations"}
-          subtitle={"Extend Home Assistant's functionality with additional devices/services"}
+          title={"Scripts"}
+          subtitle={"Automate your Home Assistant with these scripts and automations"}
           count={count}
         />
-        <FilterSearch projects={integrations} setFilteredProjects={setFilteredIntegrations} />
+        <FilterSearch projects={scripts} setFilteredProjects={setFilteredScripts} />
         <Grid
           container
           spacing={2}
@@ -79,7 +79,7 @@ export default function Integrations({
             md: 3,
           }}
         >
-          {paginatedIntegrations.map((integration) => (
+          {paginatedScripts.map((integration) => (
             <Grid item key={integration.id} xs={1}>
               <CustomCardProject project={integration} />
             </Grid>
@@ -102,10 +102,13 @@ export default function Integrations({
 
 export async function getStaticProps() {
   const {
-    data: integrations,
+    data: scripts,
     count,
     error,
-  } = await supabase.from("best-of-list").select("*", { count: "exact" }).eq("category", "integration");
+  } = await supabase
+    .from("best-of-list")
+    .select("*", { count: "exact" })
+    .in("category", ["appdaemon", "python_script"]);
 
   if (error) {
     console.error("Error fetching data from Supabase:", error);
@@ -117,7 +120,7 @@ export async function getStaticProps() {
   }
   return {
     props: {
-      integrations,
+      scripts,
       count,
     },
   };
