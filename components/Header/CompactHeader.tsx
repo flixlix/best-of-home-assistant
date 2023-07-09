@@ -9,11 +9,11 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { Close } from "@mui/icons-material";
 import { theme } from "@/styles/theme";
 
-export default function CompactHeader({ title, acitveLinkIndex, navigationLinks, headerRef }: HeaderContentProps) {
+export default function CompactHeader({ title, navigationLinks, headerRef }: HeaderContentProps) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = () => {
     setAnchorEl(headerRef?.current || null);
   };
   const handleClose = () => {
@@ -99,7 +99,7 @@ export default function CompactHeader({ title, acitveLinkIndex, navigationLinks,
             </IconButton>
           </Stack>
 
-          {navigationLinks?.map((link, index) => (
+          {navigationLinks?.map((link) => (
             <MenuItem
               key={link.title}
               onClick={handleClose}
