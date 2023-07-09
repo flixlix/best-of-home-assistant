@@ -1,3 +1,22 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "next"
+  ],
+  "plugins": [
+    "unused-imports"
+  ],
+  "rules": {
+    "react-hooks/exhaustive-deps": "off", // avoid warning for useEffect with dependencies missing
+    "@typescript-eslint/no-unused-vars": "off",
+    "unused-imports/no-unused-imports": "off",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "varsIgnorePattern": "^_",
+        "args": "after-used",
+        "argsIgnorePattern": "^_"
+      }
+    ]
+  }
 }

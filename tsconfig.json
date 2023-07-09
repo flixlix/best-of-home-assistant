@@ -25,6 +25,9 @@
       "@/theme/*": [
         "./theme/*"
       ],
+      "@supabase": [
+        "./utils/supabase.ts"
+      ],
     }
   },
   "include": [

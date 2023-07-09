@@ -1,10 +1,8 @@
 import PageContainer from "@/layout/PageContainer";
-import theme, { headerHeight } from "@/styles/theme";
-
-import { Box, Button, IconButton, PaletteMode, Paper, Stack, Typography, useScrollTrigger } from "@mui/material";
+import { Button, IconButton, PaletteMode, Paper, Stack, Typography, useScrollTrigger } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 import React from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import CompactHeader from "./CompactHeader";
@@ -61,18 +59,18 @@ export interface HeaderContentProps {
   title?: string;
   navigationLinks?: HeaderLink[];
   headerRef?: React.RefObject<HTMLDivElement>;
-  toggleTheme?: () => void;
+  toggleTheme: () => void;
   currTheme?: PaletteMode;
 }
 
 interface ThemeSwitcherProps {
-  toggleTheme?: () => void;
+  toggleTheme: () => void;
   currTheme?: PaletteMode;
 }
 
 function ThemeSwitcher({ toggleTheme, currTheme }: ThemeSwitcherProps) {
   return (
-    <IconButton aria-label="Toggle dark mode" onClick={toggleTheme} color="primary">
+    <IconButton aria-label="Toggle dark mode" onClick={() => toggleTheme()} color="primary">
       {currTheme === "dark" ? <LightModeOutlined /> : <DarkModeOutlined />}
     </IconButton>
   );
@@ -80,10 +78,10 @@ function ThemeSwitcher({ toggleTheme, currTheme }: ThemeSwitcherProps) {
 
 export default function Header(props: HeaderProps) {
   const { currTheme, toggleTheme } = props;
-  const router = useRouter();
+  // const router = useRouter();
   const isWideEnough = useMediaQuery("(min-width:600px)");
   const title = "Best of Home Assistant";
-  const [currentLinkIndex, setCurrentLinkIndex] = React.useState(-1);
+  // const [currentLinkIndex, setCurrentLinkIndex] = React.useState(-1);
   const headerRef = React.useRef<HTMLDivElement>(null);
   const links: HeaderLink[] = [
     {
@@ -109,14 +107,15 @@ export default function Header(props: HeaderProps) {
         {!isWideEnough ? (
           <CompactHeader
             title={title}
-            acitveLinkIndex={currentLinkIndex}
+            toggleTheme={() => toggleTheme()}
+            // acitveLinkIndex={currentLinkIndex}
             navigationLinks={links}
             headerRef={headerRef}
           />
         ) : (
           <DesktopHeader
             title={title}
-            acitveLinkIndex={currentLinkIndex}
+            // acitveLinkIndex={currentLinkIndex}
             navigationLinks={links}
             currTheme={currTheme}
             toggleTheme={toggleTheme}

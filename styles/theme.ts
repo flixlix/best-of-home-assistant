@@ -83,9 +83,6 @@ export const theme = createTheme({
     warning: {
       main: "#F2A541",
     },
-    success: {
-      main: "#70AE6E",
-    },
     background: {
       default: "#F7F7F7",
       paper: "#fff",
@@ -135,12 +132,16 @@ export const theme = createTheme({
       },
     },
     MuiPaper: {
-      defaultProps: {
-        variant: "outlined",
-      },
       styleOverrides: {
         root: {
           borderRadius: 0,
+        },
+      },
+    },
+    MuiAlert: {
+      styleOverrides: {
+        root: {
+          borderRadius: borderRadius,
         },
       },
     },

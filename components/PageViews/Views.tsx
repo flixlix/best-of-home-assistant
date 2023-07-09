@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef } from "react";
+import { FC } from "react";
 import PageViews from "./PageViews";
 
 interface BlogLayoutProps {
@@ -6,7 +6,6 @@ interface BlogLayoutProps {
 }
 
 const Views: FC<BlogLayoutProps> = ({ slug }) => {
-
   return (
     <div>
       <h3>{slug}</h3>
