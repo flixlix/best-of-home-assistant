@@ -4,7 +4,11 @@ import { Box, Stack, Typography } from "@mui/material";
 import React from "react";
 import Featured from "./Featured";
 
-export default function Hero() {
+interface HeroProps {
+  isWideEnough?: boolean;
+}
+
+export default function Hero({ isWideEnough }: HeroProps) {
   return (
     <PageContainer>
       <Stack gap={2}>
@@ -13,7 +17,7 @@ export default function Hero() {
             variant="h1"
             sx={{ color: "text.primary", fontWeight: "bold", fontSize: "clamp(2rem, 5vw, 3rem)" }}
           >
-            Welcome to{" "}
+            Welcome to {!isWideEnough && <br />}
             <Box component="span" sx={{ color: "primary.main" }}>
               Open Source Projects
             </Box>

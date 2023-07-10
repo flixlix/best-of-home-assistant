@@ -1,7 +1,7 @@
 import PageContainer from "@/layout/PageContainer";
 import { Project } from "@/types/Project";
 import { useDebounce } from "@/utils/useDebounce";
-import { MenuItem, Select, Stack, TextField, Theme, Typography, makeStyles } from "@mui/material";
+import { MenuItem, Select, Stack, TextField, Theme, Typography, makeStyles, useMediaQuery } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Fuse from "fuse.js";
 import { theme } from "@/styles/theme";
@@ -70,6 +70,8 @@ export default function FilterSearch({ projects, setFilteredProjects }: FilterSe
     }
   }, [sort, projects, searchResults]);
 
+  const isWideEnough = useMediaQuery((theme: any) => theme.breakpoints.up("md"));
+
   return (
     <Stack direction="row" spacing={2} alignItems={"center"} justifyContent={"space-between"}>
       <Stack direction="row" spacing={2} alignItems={"center"}>
@@ -83,16 +85,7 @@ export default function FilterSearch({ projects, setFilteredProjects }: FilterSe
             "&.MuiTextField-root": {
               width: "20ch",
               "&:hover": {
-                width: "30ch",
-              },
-              "&:focus": {
-                width: "30ch",
-              },
-              "&:active": {
-                width: "30ch",
-              },
-              "&:target": {
-                width: "30ch",
+                width: isWideEnough ? "30ch" : "20ch",
               },
             },
           }}

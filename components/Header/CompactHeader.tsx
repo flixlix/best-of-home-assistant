@@ -8,6 +8,7 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 
 import { Close } from "@mui/icons-material";
 import { theme } from "@/styles/theme";
+import { useRouter } from "next/router";
 
 export default function CompactHeader({ title, navigationLinks, headerRef }: HeaderContentProps) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -19,6 +20,7 @@ export default function CompactHeader({ title, navigationLinks, headerRef }: Hea
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const router = useRouter();
   return (
     <>
       <PageContainer
@@ -102,7 +104,10 @@ export default function CompactHeader({ title, navigationLinks, headerRef }: Hea
           {navigationLinks?.map((link) => (
             <MenuItem
               key={link.title}
-              onClick={handleClose}
+              onClick={() => {
+                handleClose();
+                router.push(link.href);
+              }}
               sx={{
                 height: "5rem",
               }}
