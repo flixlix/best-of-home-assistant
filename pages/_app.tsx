@@ -2,11 +2,12 @@ import type { AppProps } from "next/app";
 import "../styles/globals.css";
 import { ThemeProvider } from "@mui/material/styles";
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import getTheme from "@/styles/theme";
 import { Alert, Box, Snackbar, useMediaQuery } from "@mui/material";
 import { useMyStore } from "@/store/store";
 import { Analytics } from "@vercel/analytics/react";
+import { useRouter } from "next/router";
 
 export default function App({ Component, pageProps }: AppProps) {
   const { alert, setAlert, setTheme: setThemeMode, theme: themeMode } = useMyStore();
@@ -26,6 +27,41 @@ export default function App({ Component, pageProps }: AppProps) {
   };
 
   const theme = getTheme(themeMode);
+
+  const calledOnce = React.useRef(false);
+
+  const router = useRouter();
+
+  const pageName = router.pathname.replace("/", "");
+
+  const incrementPageView = async () => {
+    try {
+      const response = await fetch("/api/increment", {
+        method: "POST",
+        body: JSON.stringify({ page_name: pageName === "" ? "home" : pageName }), // Pass the page name as a parameter
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data.message);
+      } else {
+        console.error("Failed to increment page view");
+      }
+    } catch (error) {
+      console.error("An error occurred while incrementing page view:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (calledOnce.current) {
+      return;
+    }
+    incrementPageView();
+    calledOnce.current = true;
+  }, []);
 
   return (
     <>

@@ -1,28 +1,20 @@
-import supabase from "@/utils/supabase";
 import { NextApiRequest, NextApiResponse } from "next";
+import supabase from "@/utils/supabase";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
-  if (req.method === "POST") {
-    try {
-      const { data, error } = await supabase.rpc("add_numbers", {
-        a: 1,
-        b: 2,
-      });
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const { page_name } = req.body;
 
-      if (error) {
-        console.error("Error:", error);
-        res.status(500).json({ error });
-      } else {
-        const sum = data[0].add_numbers;
-        console.log("Sum:", sum);
-        res.status(200).json({ sum });
-        return data;
-      }
-    } catch (error) {
-      console.error("Error:", error);
+  try {
+    const { error } = await supabase.rpc("increment_page_view", { page_name });
+
+    if (!error) {
+      res.status(200).json({ message: "Page view incremented successfully" });
+    } else {
+      console.error("Failed to increment page view:", error);
+      res.status(500).json({ message: "An error occurred while incrementing page view" });
     }
-  } else {
-    // Handle unsupported HTTP methods
-    res.status(405).json({ error: "Method Not Allowed" });
+  } catch (error) {
+    console.error("An error occurred while calling the function:", error);
+    res.status(500).json({ message: "An error occurred while calling the function" });
   }
 }
