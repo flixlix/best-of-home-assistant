@@ -6,7 +6,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     const { error } = await supabase.rpc("increment_page_view", { page_name });
-
     if (!error) {
       res.status(200).json({ message: "Page view incremented successfully" });
     } else {

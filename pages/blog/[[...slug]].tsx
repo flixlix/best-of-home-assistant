@@ -4,7 +4,7 @@ import Sponsor from "@/index_page/components/Sponsor/Sponsor";
 import { Box, Button, Link, Stack, TableContainer, Typography } from "@mui/material";
 import axios from "axios";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
-import React from "react";
+import React, { useEffect } from "react";
 import remarkGfm from "remark-gfm";
 import Image from "next/image";
 import { theme } from "@/styles/theme";
@@ -24,7 +24,15 @@ interface Props {
   project: Project;
 }
 
-export default function Blog({ readmePost, gitReadmeUrl, gitRepoUrl, toggleTheme, currTheme, path, project }: Props) {
+export default function Blog({
+  readmePost,
+  gitReadmeUrl,
+  gitRepoUrl,
+  toggleTheme,
+  currTheme,
+  path,
+  project,
+}: Props) {
   return (
     <>
       <Stack
@@ -54,7 +62,9 @@ export async function getServerSideProps({ params }: { params: any }) {
     .get(`https://api.github.com/repos/${params.slug?.[0]}/${params.slug?.[1]}`)
     .then((res) => res.data.default_branch)
     .catch((err) => console.log(err));
-  const gitReadmeUrl = `https://raw.githubusercontent.com/${params.slug?.[0]}/${params.slug?.[1]}/${defaultBranch}/README.md`;
+  const gitReadmeUrl = `https://raw.githubusercontent.com/${params.slug?.[0]}/${params.slug?.[1]}/${
+    defaultBranch ?? "main"
+  }/README.md`;
   const gitRepoUrl = `https://github.com/${params.slug?.[0]}/${params.slug?.[1]}`;
   const response = await axios.get(gitReadmeUrl);
   const data = response.data;
@@ -62,6 +72,6 @@ export async function getServerSideProps({ params }: { params: any }) {
   const { data: project } = await supabase.from("best-of-list").select("*").eq("github_id", path).single();
 
   return {
-    props: { readmePost: data, gitReadmeUrl, path, gitRepoUrl, project },
+    props: { readmePost: data, gitReadmeUrl, path, gitRepoUrl, project, defaultBranch },
   };
 }
