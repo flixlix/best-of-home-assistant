@@ -1,9 +1,10 @@
 import Badges from "@/components/CustomCard/Badges/Badges";
 import { Project } from "@/types/Project";
 import { Launch, Star } from "@mui/icons-material";
-import { IconButton, Stack, Typography } from "@mui/material";
+import { IconButton, Link, Stack, Typography } from "@mui/material";
 import supabase from "@supabase";
 import axios from "axios";
+
 import React from "react";
 
 interface ProjectMetadataProps {
@@ -16,9 +17,37 @@ export default function ProjectMetadata({ gitRepoUrl, project }: ProjectMetadata
   return (
     <Stack gap={2}>
       <Stack direction="row" justifyContent="space-between" alignItems={"center"}>
-        <Stack>
-          <Typography variant="h4">{project.name}</Typography>
-          <Typography variant="body1">{project.description}</Typography>
+        <Stack direction={"row"} gap={1} alignItems={"baseline"}>
+          <Typography
+            variant={"h3"}
+            sx={{
+              color: "text.primary",
+              fontWeight: "bold",
+              maxWidth: "20ch",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {project.name}
+          </Typography>
+          <Typography variant="body1" sx={{ fontWeight: "400", color: "text.secondary" }}>
+            by{" "}
+            <Link
+              sx={{
+                color: "inherit",
+                textDecoration: "none",
+                /* underline on hover */
+                "&:hover": {
+                  textDecoration: "underline",
+                },
+              }}
+              href={`https://github.com/${project.github_id.split("/")[0]}`}
+              target="_blank"
+            >
+              {project.github_id.split("/")[0]}
+            </Link>
+          </Typography>
         </Stack>
         <IconButton
           href={gitRepoUrl}

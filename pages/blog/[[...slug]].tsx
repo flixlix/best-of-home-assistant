@@ -15,24 +15,14 @@ import supabase from "@supabase";
 import { Project } from "@/types/Project";
 
 interface Props {
-  gitReadmeUrl: string;
   gitRepoUrl: string;
-  readmePost: string;
   toggleTheme: () => void;
   currTheme: "light" | "dark";
   path: string;
   project: Project;
 }
 
-export default function Blog({
-  readmePost,
-  gitReadmeUrl,
-  gitRepoUrl,
-  toggleTheme,
-  currTheme,
-  path,
-  project,
-}: Props) {
+export default function Blog({ gitRepoUrl, toggleTheme, currTheme, path, project }: Props) {
   return (
     <>
       <Stack
@@ -46,9 +36,7 @@ export default function Blog({
       >
         <Header toggleTheme={toggleTheme} currTheme={currTheme} />
 
-        <BlogLayout gitReadmeUrl={gitReadmeUrl} path={path} gitRepoUrl={gitRepoUrl} project={project}>
-          <MDRender readmePost={readmePost} />
-        </BlogLayout>
+        <BlogLayout path={path} gitRepoUrl={gitRepoUrl} project={project}></BlogLayout>
         <Sponsor />
         <Footer />
       </Stack>
@@ -58,20 +46,20 @@ export default function Blog({
 
 export async function getServerSideProps({ params }: { params: any }) {
   const path = params.slug?.join("/");
-  const defaultBranch = await axios
-    .get(`https://api.github.com/repos/${params.slug?.[0]}/${params.slug?.[1]}`)
-    .then((res) => res.data.default_branch)
-    .catch((err) => console.log(err));
-  const gitReadmeUrl = `https://raw.githubusercontent.com/${params.slug?.[0]}/${params.slug?.[1]}/${
-    defaultBranch ?? "main"
-  }/README.md`;
+  // const defaultBranch = await axios
+  //   .get(`https://api.github.com/repos/${params.slug?.[0]}/${params.slug?.[1]}`)
+  //   .then((res) => res.data.default_branch)
+  //   .catch((err) => console.log(err));
+  // const gitReadmeUrl = `https://raw.githubusercontent.com/${params.slug?.[0]}/${params.slug?.[1]}/${
+  //   defaultBranch ?? "main"
+  // }/README.md`;
   const gitRepoUrl = `https://github.com/${params.slug?.[0]}/${params.slug?.[1]}`;
-  const response = await axios.get(gitReadmeUrl);
-  const data = response.data;
+  // const response = await axios.get(gitReadmeUrl);
+  // const data = response.data;
 
   const { data: project } = await supabase.from("best-of-list").select("*").eq("github_id", path).single();
 
   return {
-    props: { readmePost: data, gitReadmeUrl, path, gitRepoUrl, project, defaultBranch },
+    props: { path, gitRepoUrl, project },
   };
 }

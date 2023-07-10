@@ -1,19 +1,19 @@
 import PageContainer from "@/layout/PageContainer";
 import { theme } from "@/styles/theme";
-import { Box, Grid, Paper, Stack } from "@mui/material";
+import { Box, Grid, Paper, Stack, Typography } from "@mui/material";
 import React from "react";
 import ProjectMetadata from "./components/ProjectMetadata";
 import { Project } from "@/types/Project";
+import { format, formatDistance, formatRelative, subDays } from "date-fns";
+import numberToString from "@/utils/numberToString";
 
 type BlogLayoutProps = {
-  children: React.ReactNode;
-  gitReadmeUrl: string;
   path: string;
   gitRepoUrl: string;
   project: Project;
 };
 
-export default function BlogLayout({ children, gitRepoUrl, path, project }: BlogLayoutProps) {
+export default function BlogLayout({ gitRepoUrl, path, project }: BlogLayoutProps) {
   return (
     <PageContainer>
       <Stack gap={4}>
@@ -31,9 +31,13 @@ export default function BlogLayout({ children, gitRepoUrl, path, project }: Blog
           sx={{
             p: 3,
             borderRadius: theme.shape.borderRadius + "px",
+            whiteSpace: "pre-wrap",
+            overflowWrap: "break-word",
           }}
         >
-          {children}
+          <Typography variant="body1" sx={{ color: "text.primary" }}>
+            {project.description}
+          </Typography>
         </Paper>
       </Stack>
     </PageContainer>
