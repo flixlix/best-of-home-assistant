@@ -151,6 +151,7 @@ const emojis: Emojis = {
   "outbox tray": "📤",
   "inbox tray": "📥",
   "package": "📦",
+  "video game": "🎮",
 };
 
 export default function createEmojisFromString(string: string): string {
