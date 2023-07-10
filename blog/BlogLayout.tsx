@@ -1,6 +1,6 @@
 import PageContainer from "@/layout/PageContainer";
 import { theme } from "@/styles/theme";
-import { Box, Grid, Paper, Stack, Typography } from "@mui/material";
+import { Alert, AlertTitle, Box, Grid, Paper, Stack, Typography } from "@mui/material";
 import React from "react";
 import ProjectMetadata from "./components/ProjectMetadata";
 import { Project } from "@/types/Project";
@@ -33,11 +33,18 @@ export default function BlogLayout({ gitRepoUrl, path, project }: BlogLayoutProp
             borderRadius: theme.shape.borderRadius + "px",
             whiteSpace: "pre-wrap",
             overflowWrap: "break-word",
+            gap: 2,
+            display: "flex",
+            flexDirection: "column",
           }}
         >
           <Typography variant="body1" sx={{ color: "text.primary" }}>
             {project.description}
           </Typography>
+          <Alert severity="warning">
+            <AlertTitle>Warning</AlertTitle>
+            This page is still under heavy construction. Please check back for new features and updates.
+          </Alert>
         </Paper>
       </Stack>
     </PageContainer>
