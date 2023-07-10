@@ -11,6 +11,7 @@ import FilterSearch from "@/components/FilterSearch/FilterSearch";
 import Pagination from "@/components/Pagination/Pagination";
 import HeadingPage from "@/components/HeadingPage/HeadingPage";
 import LoadingState from "@/components/LoadingState/LoadingState";
+import { NextRequest, NextResponse } from "next/server";
 
 export default function Cards({
   toggleTheme,
