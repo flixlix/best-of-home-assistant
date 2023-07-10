@@ -16,7 +16,7 @@ export default function ProjectTypes() {
     <PageContainer>
       <Grid
         container
-        spacing={4}
+        spacing={2}
         sx={{
           paddingX: 20,
           [theme.breakpoints.between("xs", "md")]: {

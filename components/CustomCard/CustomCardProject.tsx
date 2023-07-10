@@ -2,6 +2,7 @@ import { Project } from "@/types/Project";
 import { Typography } from "@mui/material";
 import CustomCardBase from "./CustomCardBase";
 import Badges from "./Badges/Badges";
+import createEmojisFromString from "@/utils/magicCreateEmojis";
 
 interface CustomCardProjectProps {
   project: Project;
@@ -13,6 +14,7 @@ export default function CustomCardProject({ project }: CustomCardProjectProps) {
     project.name.replace("integration", "").length > nameCharacterLimit
       ? project.name.replace("integration", "").substring(0, nameCharacterLimit) + "..."
       : project.name.replace("integration", "");
+
   return (
     <CustomCardBase href={project.github_url} openNewTab height={130} topChildren={<Badges project={project} />}>
       <Typography
@@ -25,7 +27,7 @@ export default function CustomCardProject({ project }: CustomCardProjectProps) {
           WebkitBoxOrient: "vertical",
         }}
       >
-        {name}
+        {createEmojisFromString(name)}
       </Typography>
       <Typography
         variant="body2"
@@ -38,7 +40,7 @@ export default function CustomCardProject({ project }: CustomCardProjectProps) {
           WebkitBoxOrient: "vertical",
         }}
       >
-        {project.description}
+        {createEmojisFromString(project.description)}
       </Typography>
     </CustomCardBase>
   );

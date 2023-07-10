@@ -6,32 +6,10 @@ import { useEffect, useState } from "react";
 import getTheme from "@/styles/theme";
 import { Alert, Box, Snackbar, useMediaQuery } from "@mui/material";
 import { useMyStore } from "@/store/store";
+import { Analytics } from "@vercel/analytics/react";
 
 export default function App({ Component, pageProps }: AppProps) {
   const { alert, setAlert, setTheme: setThemeMode, theme: themeMode } = useMyStore();
-  // const router = useRouter();
-  // const slug = router.pathname;
-  // const initialized = useRef(false);
-  // const [formattedSlug, setFormattedSlug] = useState<string>("");
-  // useEffect(() => {
-  //   async function updateViewCount(slug: string) {
-  //     const res = await fetch(`/api/views/${slug}`, {
-  //       method: "POST",
-  //     });
-  //     return res;
-  //   }
-  //   if (!initialized.current && !!slug) {
-  //     const newSlug = slug === "/" ? "home" : slug;
-  //     initialized.current = true;
-  //     updateViewCount(newSlug);
-  //     setFormattedSlug(newSlug);
-  //   }
-  // }, [slug]);
-
-  // const fetcher = async (input: RequestInfo) => {
-  //   const res: Response = await fetch(input);
-  //   return await res.json();
-  // };
 
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
@@ -58,6 +36,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.png" />
       </Head>
       <ThemeProvider theme={theme}>
+        <Analytics />
         <Box
           sx={{
             width: "100%",
