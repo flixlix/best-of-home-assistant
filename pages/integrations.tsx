@@ -10,6 +10,7 @@ import Footer from "@/components/Footer/Footer";
 import FilterSearch from "@/components/FilterSearch/FilterSearch";
 import Pagination from "@/components/Pagination/Pagination";
 import HeadingPage from "@/components/HeadingPage/HeadingPage";
+import LoadingState from "@/components/LoadingState/LoadingState";
 
 export default function Integrations({
   toggleTheme,
@@ -64,35 +65,41 @@ export default function Integrations({
           gap: 2,
         }}
       >
-        <HeadingPage
-          title={"Integrations"}
-          subtitle={"Extend Home Assistant's functionality with additional devices/services"}
-          count={count}
-        />
-        <FilterSearch projects={integrations} setFilteredProjects={setFilteredIntegrations} />
-        <Grid
-          container
-          spacing={2}
-          columns={{
-            xs: 1,
-            sm: 2,
-            md: 3,
-          }}
-        >
-          {paginatedIntegrations.map((integration) => (
-            <Grid item key={integration.id} xs={1}>
-              <CustomCardProject project={integration} />
+        {integrations ? (
+          <>
+            <HeadingPage
+              title={"Integrations"}
+              subtitle={"Extend Home Assistant's functionality with additional devices/services"}
+              count={count}
+            />
+            <FilterSearch projects={integrations} setFilteredProjects={setFilteredIntegrations} />
+            <Grid
+              container
+              spacing={2}
+              columns={{
+                xs: 1,
+                sm: 2,
+                md: 3,
+              }}
+            >
+              {paginatedIntegrations.map((integration) => (
+                <Grid item key={integration.id} xs={1}>
+                  <CustomCardProject project={integration} />
+                </Grid>
+              ))}
             </Grid>
-          ))}
-        </Grid>
-        {pagesNumber > 1 && (
-          <Pagination
-            pagesNumber={pagesNumber}
-            page={page}
-            setPage={setPage}
-            itemsPerPage={itemsPerPage}
-            setItemsPerPage={setItemsPerPage}
-          />
+            {pagesNumber > 1 && (
+              <Pagination
+                pagesNumber={pagesNumber}
+                page={page}
+                setPage={setPage}
+                itemsPerPage={itemsPerPage}
+                setItemsPerPage={setItemsPerPage}
+              />
+            )}
+          </>
+        ) : (
+          <LoadingState />
         )}
       </PageContainer>
       <Footer />
