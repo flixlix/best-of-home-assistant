@@ -12,7 +12,8 @@ interface FeaturedDescriptionProps {
       name: string;
       profile: string;
     };
-    imgPath: string;
+    imgPath?: string;
+    videoPath?: string;
     description: React.ReactNode;
   };
 }

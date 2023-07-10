@@ -30,7 +30,7 @@ export default function Footer() {
               href="https://github.com/flixlix/best-of-home-assistant"
               target="_blank"
               sx={{
-                color: "text.primary",
+                color: "text.disabled",
                 opacity: 0.3,
                 transition: "opacity 0.2s ease-in-out",
                 "&:hover": {

@@ -18,7 +18,9 @@ export default function CardProjectType({
   return (
     <CustomCardBase href={href}>
       <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
-        <Typography variant="h5">{title}</Typography>
+        <Typography variant="h5" component={"h2"}>
+          {title}
+        </Typography>
         <Box color={"grey.500"}>{icon}</Box>
       </Stack>
       <Typography
