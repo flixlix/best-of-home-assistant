@@ -26,6 +26,7 @@ export default function Footer() {
             </Typography>
             <IconButton
               disableRipple
+              aria-label="View Source Code in GitHub"
               href="https://github.com/flixlix/best-of-home-assistant"
               target="_blank"
               sx={{

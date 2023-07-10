@@ -69,6 +69,7 @@ export default function CompactHeader({ title, navigationLinks, headerRef }: Hea
             aria-controls={open ? "nav-menu" : undefined}
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
+            aria-label="open menu drawer"
           >
             <MenuOutlinedIcon />
           </IconButton>
