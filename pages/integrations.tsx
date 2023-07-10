@@ -11,6 +11,7 @@ import FilterSearch from "@/components/FilterSearch/FilterSearch";
 import Pagination from "@/components/Pagination/Pagination";
 import HeadingPage from "@/components/HeadingPage/HeadingPage";
 import LoadingState from "@/components/LoadingState/LoadingState";
+import { useRouter } from "next/router";
 
 export default function Integrations({
   toggleTheme,
@@ -55,6 +56,8 @@ export default function Integrations({
     setPaginatedIntegrations(filteredIntegrations.slice(start, end));
   }, [page, filteredIntegrations, itemsPerPage]);
 
+  const router = useRouter();
+
   return (
     <Stack gap={2}>
       <Header toggleTheme={toggleTheme} currTheme={currTheme} currentLinkIndex={0} />
@@ -65,7 +68,7 @@ export default function Integrations({
           gap: 2,
         }}
       >
-        {integrations ? (
+        {integrations || router.isFallback ? (
           <>
             <HeadingPage
               title={"Integrations"}

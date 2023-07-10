@@ -8,6 +8,7 @@ import { Alert, Box, Snackbar, useMediaQuery } from "@mui/material";
 import { useMyStore } from "@/store/store";
 import { Analytics } from "@vercel/analytics/react";
 import { useRouter } from "next/router";
+import { DefaultSeo } from "next-seo";
 
 export default function App({ Component, pageProps }: AppProps) {
   const { alert, setAlert, setTheme: setThemeMode, theme: themeMode } = useMyStore();
@@ -63,6 +64,10 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
+        <DefaultSeo
+          title="Best of Home Assistant"
+          description="A curated list of the best Home Assistant custom components, plugins, addons, custom cards, and themes."
+        />
         <title>Best of Home Assistant</title>
         <meta name="description" content="This is a website to showcase the best of Home Assistant" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
