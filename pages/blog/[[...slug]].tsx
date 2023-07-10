@@ -50,7 +50,11 @@ export default function Blog({ readmePost, gitReadmeUrl, gitRepoUrl, toggleTheme
 
 export async function getServerSideProps({ params }: { params: any }) {
   const path = params.slug?.join("/");
-  const gitReadmeUrl = `https://raw.githubusercontent.com/${params.slug?.[0]}/${params.slug?.[1]}/main/README.md`;
+  const defaultBranch = await axios
+    .get(`https://api.github.com/repos/${params.slug?.[0]}/${params.slug?.[1]}`)
+    .then((res) => res.data.default_branch)
+    .catch((err) => console.log(err));
+  const gitReadmeUrl = `https://raw.githubusercontent.com/${params.slug?.[0]}/${params.slug?.[1]}/${defaultBranch}/README.md`;
   const gitRepoUrl = `https://github.com/${params.slug?.[0]}/${params.slug?.[1]}`;
   const response = await axios.get(gitReadmeUrl);
   const data = response.data;
