@@ -38,16 +38,13 @@ export default function App({ Component, pageProps }: AppProps) {
     try {
       const response = await fetch("/api/increment", {
         method: "POST",
-        body: JSON.stringify({ page_name: pageName === "" ? "home" : pageName }), // Pass the page name as a parameter
+        body: JSON.stringify({ page_name: pageName === "" ? "home" : pageName }),
         headers: {
           "Content-Type": "application/json",
         },
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        console.log(data.message);
-      } else {
+      if (!response.ok) {
         console.error("Failed to increment page view");
       }
     } catch (error) {
@@ -79,6 +76,9 @@ export default function App({ Component, pageProps }: AppProps) {
             height: "100%",
             boxSizing: "border-box",
             backgroundColor: theme.palette.background.default,
+            "& *": {
+              fontFamily: "Roboto, sans-serif",
+            },
           }}
         >
           <Component {...pageProps} toggleTheme={toggleTheme} currTheme={themeMode} />

@@ -50,6 +50,10 @@ const getDesignTokens = (mode?: PaletteMode) => ({
 });
 
 export const theme = createTheme({
+  typography: {
+    fontFamily: "Roboto, Helvetica, Arial, sans-serif",
+  },
+
   palette: {
     primary: {
       main: "#049cdb",

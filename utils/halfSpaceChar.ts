@@ -1,0 +1,1 @@
+export const halfSpace = "\u200a";

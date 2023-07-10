@@ -11,6 +11,8 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@mdi/js": "^7.2.96",
+    "@mdi/react": "^1.6.1",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.13.5",
     "@supabase/auth-helpers-nextjs": "^0.7.2",
@@ -29,10 +31,13 @@
     "next": "13.4.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-markdown": "^8.0.7",
     "react-swipeable-views": "^0.14.0",
     "react-swipeable-views-utils": "^0.14.0",
+    "remark-gfm": "^3.0.1",
     "swr": "^2.1.5",
     "typescript": "5.1.3",
+    "uuid": "^9.0.0",
     "zustand": "^4.3.9"
   },
   "devDependencies": {
@@ -40,6 +45,7 @@
     "@types/lodash": "^4.14.195",
     "@types/react-swipeable-views": "^0.13.2",
     "@types/react-swipeable-views-utils": "^0.13.4",
+    "@types/uuid": "^9.0.2",
     "eslint": "^8.44.0",
     "eslint-plugin-unused-imports": "^2.0.0"
   }

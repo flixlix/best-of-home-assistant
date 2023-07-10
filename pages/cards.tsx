@@ -109,16 +109,7 @@ export async function getStaticProps() {
 
   if (error) {
     console.error("Error fetching data from Supabase:", error);
-    return {
-      props: {
-        fetchError: error.message || error,
-      },
-    };
+    return { props: { fetchError: error.message || error } };
   }
-  return {
-    props: {
-      cards,
-      count,
-    },
-  };
+  return { props: { cards, count } };
 }
