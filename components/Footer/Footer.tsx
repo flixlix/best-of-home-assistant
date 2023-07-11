@@ -31,6 +31,7 @@ export default function Footer() {
               target="_blank"
               sx={{
                 color: "text.disabled",
+                fill: "text.disabled",
                 opacity: 0.3,
                 transition: "opacity 0.2s ease-in-out",
                 "&:hover": {
