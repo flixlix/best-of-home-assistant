@@ -8,12 +8,11 @@ import axios from "axios";
 import React from "react";
 
 interface ProjectMetadataProps {
-  gitRepoUrl: string;
   path: string;
   project: Project;
 }
 
-export default function ProjectMetadata({ gitRepoUrl, project }: ProjectMetadataProps) {
+export default function ProjectMetadata({ project }: ProjectMetadataProps) {
   return (
     <Stack gap={2}>
       <Stack direction="row" justifyContent="space-between" alignItems={"center"}>
@@ -50,8 +49,6 @@ export default function ProjectMetadata({ gitRepoUrl, project }: ProjectMetadata
           </Typography>
         </Stack>
         <IconButton
-          href={gitRepoUrl}
-          target="_blank"
           sx={{
             height: "max-content",
           }}

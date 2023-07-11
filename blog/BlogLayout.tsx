@@ -9,11 +9,11 @@ import numberToString from "@/utils/numberToString";
 
 type BlogLayoutProps = {
   path: string;
-  gitRepoUrl: string;
+
   project: Project;
 };
 
-export default function BlogLayout({ gitRepoUrl, path, project }: BlogLayoutProps) {
+export default function BlogLayout({ path, project }: BlogLayoutProps) {
   return (
     <PageContainer>
       <Stack gap={4}>
@@ -24,7 +24,7 @@ export default function BlogLayout({ gitRepoUrl, path, project }: BlogLayoutProp
             borderRadius: theme.shape.borderRadius + "px",
           }}
         >
-          <ProjectMetadata gitRepoUrl={gitRepoUrl} path={path} project={project} />
+          <ProjectMetadata path={path} project={project} />
         </Paper>
         <Paper
           variant="outlined"

@@ -13,16 +13,27 @@ import MDRender from "@/blog/components/MDRender";
 import BlogLayout from "@/blog/BlogLayout";
 import supabase from "@supabase";
 import { Project } from "@/types/Project";
+import { PostgrestError } from "@supabase/supabase-js";
+import Error from "next/error";
 
 interface Props {
   gitRepoUrl: string;
   toggleTheme: () => void;
   currTheme: "light" | "dark";
   path: string;
+  fetchError: PostgrestError;
   project: Project;
 }
 
-export default function Blog({ gitRepoUrl, toggleTheme, currTheme, path, project }: Props) {
+export default function Blog({ toggleTheme, currTheme, path, fetchError, project }: Props) {
+  if (fetchError || !project) {
+    return (
+      <Error statusCode={404} title="Project not found">
+        <Typography variant="h1">Project not found</Typography>
+      </Error>
+    );
+  }
+
   return (
     <>
       <Stack
@@ -35,8 +46,7 @@ export default function Blog({ gitRepoUrl, toggleTheme, currTheme, path, project
         }}
       >
         <Header toggleTheme={toggleTheme} currTheme={currTheme} />
-
-        <BlogLayout path={path} gitRepoUrl={gitRepoUrl} project={project}></BlogLayout>
+        {project && <BlogLayout path={path} project={project}></BlogLayout>}
         <Sponsor />
         <Footer />
       </Stack>
@@ -46,20 +56,13 @@ export default function Blog({ gitRepoUrl, toggleTheme, currTheme, path, project
 
 export async function getServerSideProps({ params }: { params: any }) {
   const path = params.slug?.join("/");
-  // const defaultBranch = await axios
-  //   .get(`https://api.github.com/repos/${params.slug?.[0]}/${params.slug?.[1]}`)
-  //   .then((res) => res.data.default_branch)
-  //   .catch((err) => console.log(err));
-  // const gitReadmeUrl = `https://raw.githubusercontent.com/${params.slug?.[0]}/${params.slug?.[1]}/${
-  //   defaultBranch ?? "main"
-  // }/README.md`;
-  const gitRepoUrl = `https://github.com/${params.slug?.[0]}/${params.slug?.[1]}`;
-  // const response = await axios.get(gitReadmeUrl);
-  // const data = response.data;
-
-  const { data: project } = await supabase.from("best-of-list").select("*").eq("github_id", path).single();
+  const { data: project, error: fetchError } = await supabase
+    .from("best-of-list")
+    .select("*")
+    .eq("github_id", path)
+    .single();
 
   return {
-    props: { path, gitRepoUrl, project },
+    props: { path, project, fetchError },
   };
 }
