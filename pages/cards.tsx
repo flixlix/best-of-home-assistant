@@ -13,19 +13,7 @@ import HeadingPage from "@/components/HeadingPage/HeadingPage";
 import LoadingState from "@/components/LoadingState/LoadingState";
 import { NextRequest, NextResponse } from "next/server";
 
-export default function Cards({
-  toggleTheme,
-  currTheme,
-  cards,
-  count,
-  fetchError,
-}: {
-  toggleTheme: () => void;
-  currTheme: PaletteMode;
-  cards: Project[];
-  count: number;
-  fetchError?: string;
-}) {
+export default function Cards({ cards, count, fetchError }: { cards: Project[]; count: number; fetchError?: string }) {
   const [itemsPerPage, setItemsPerPage] = React.useState(24);
   const [pagesNumber, setPagesNumber] = React.useState(Math.ceil(count / itemsPerPage));
 
@@ -58,7 +46,7 @@ export default function Cards({
 
   return (
     <Stack gap={2}>
-      <Header toggleTheme={toggleTheme} currTheme={currTheme} currentLinkIndex={1} />
+      <Header currentLinkIndex={1} />
       <PageContainer
         sx={{
           display: "flex",
@@ -83,11 +71,19 @@ export default function Cards({
                 md: 3,
               }}
             >
-              {paginatedCards.map((integration) => (
-                <Grid item key={integration.id} xs={1}>
-                  <CustomCardProject project={integration} />
+              {paginatedCards.length === 0 ? (
+                <Grid item xs={12}>
+                  <Typography variant="body2" color="text.secondary">
+                    No cards found
+                  </Typography>
                 </Grid>
-              ))}
+              ) : (
+                paginatedCards.map((integration) => (
+                  <Grid item key={integration.id} xs={1}>
+                    <CustomCardProject project={integration} />
+                  </Grid>
+                ))
+              )}
             </Grid>
             {pagesNumber > 1 && (
               <Pagination

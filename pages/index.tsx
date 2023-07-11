@@ -9,7 +9,7 @@ import Featured from "@/index_page/components/Hero/Featured";
 import Sponsor from "@/index_page/components/Sponsor/Sponsor";
 import PageContainer from "@/layout/PageContainer";
 
-export default function Home({ toggleTheme, currTheme }: { toggleTheme: () => void; currTheme: PaletteMode }) {
+export default function Home({}: {}) {
   const isWideEnough = useMediaQuery((theme: any) => theme.breakpoints.up("md"));
   return (
     <Stack
@@ -20,7 +20,7 @@ export default function Home({ toggleTheme, currTheme }: { toggleTheme: () => vo
         flexDirection: "column",
       }}
     >
-      <Header toggleTheme={toggleTheme} currTheme={currTheme}  />
+      <Header />
       <Hero isWideEnough={isWideEnough} />
       <ProjectTypes />
       {isWideEnough && <Featured />}

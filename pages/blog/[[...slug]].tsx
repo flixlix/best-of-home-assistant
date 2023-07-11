@@ -18,14 +18,12 @@ import Error from "next/error";
 
 interface Props {
   gitRepoUrl: string;
-  toggleTheme: () => void;
-  currTheme: "light" | "dark";
   path: string;
   fetchError: PostgrestError;
   project: Project;
 }
 
-export default function Blog({ toggleTheme, currTheme, path, fetchError, project }: Props) {
+export default function Blog({ path, fetchError, project }: Props) {
   if (fetchError || !project) {
     return (
       <Error statusCode={404} title="Project not found">
@@ -45,7 +43,7 @@ export default function Blog({ toggleTheme, currTheme, path, fetchError, project
           fontFamily: "Roboto",
         }}
       >
-        <Header toggleTheme={toggleTheme} currTheme={currTheme} />
+        <Header />
         {project && <BlogLayout path={path} project={project}></BlogLayout>}
         <Sponsor />
         <Footer />

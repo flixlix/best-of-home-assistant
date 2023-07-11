@@ -1,3 +1,4 @@
+import { ThemeMode } from "@/types/ThemeMode";
 import { AlertColor } from "@mui/material";
 
 export type CustomAlert = {
@@ -7,14 +8,12 @@ export type CustomAlert = {
   duration?: number;
 };
 
-export type Theme = "light" | "dark" ;
-
 export type BestOfHAStore = {
   // state
   alert: CustomAlert;
-  theme: Theme;
+  theme: ThemeMode;
   // functions
   setAlert: (_alert: CustomAlert) => void;
-  setTheme: (_theme: Theme) => void;
+  setTheme: React.Dispatch<React.SetStateAction<ThemeMode>>;
   purge: () => void;
 };

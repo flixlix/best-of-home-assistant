@@ -11,21 +11,7 @@ import { useRouter } from "next/router";
 import { DefaultSeo } from "next-seo";
 
 export default function App({ Component, pageProps }: AppProps) {
-  const { alert, setAlert, setTheme: setThemeMode, theme: themeMode } = useMyStore();
-
-  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
-
-  useEffect(() => {
-    if (prefersDarkMode) {
-      setThemeMode("dark");
-    } else {
-      setThemeMode("light");
-    }
-  }, [prefersDarkMode]);
-
-  const toggleTheme = () => {
-    setThemeMode(themeMode === "light" ? "dark" : "light");
-  };
+  const { alert, setAlert, theme: themeMode } = useMyStore();
 
   const theme = getTheme(themeMode);
 
@@ -78,7 +64,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <Box
           sx={{
             width: "100%",
-            height: "100%",
+            minHeight: "100vh",
             boxSizing: "border-box",
             backgroundColor: theme.palette.background.default,
             "& *": {
@@ -86,7 +72,7 @@ export default function App({ Component, pageProps }: AppProps) {
             },
           }}
         >
-          <Component {...pageProps} toggleTheme={toggleTheme} currTheme={themeMode} />
+          <Component {...pageProps} />
           <Snackbar
             anchorOrigin={{
               vertical: "bottom",

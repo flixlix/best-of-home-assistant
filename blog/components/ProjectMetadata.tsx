@@ -13,6 +13,7 @@ interface ProjectMetadataProps {
 }
 
 export default function ProjectMetadata({ project }: ProjectMetadataProps) {
+  console.log(project);
   return (
     <Stack gap={2}>
       <Stack direction="row" justifyContent="space-between" alignItems={"center"}>
@@ -52,6 +53,8 @@ export default function ProjectMetadata({ project }: ProjectMetadataProps) {
           sx={{
             height: "max-content",
           }}
+          href={project.github_url}
+          target="_blank"
         >
           <Launch />
         </IconButton>

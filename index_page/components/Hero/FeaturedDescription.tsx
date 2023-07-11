@@ -25,7 +25,8 @@ export default function FeaturedDescription({ item }: FeaturedDescriptionProps) 
       <Stack gap={2}>
         <Stack direction={"row"} gap={1} alignItems={"baseline"}>
           <Typography
-            variant={"h3"}
+            variant={"h4"}
+            component={"h3"}
             sx={{
               color: "text.primary",
               fontWeight: "bold",
@@ -74,6 +75,7 @@ export default function FeaturedDescription({ item }: FeaturedDescriptionProps) 
           transition: "all 0.2s ease-in-out",
           "&:hover": {
             width: "30ch",
+            backgroundColor: themeMode === "light" ? "#fff" : "#171717",
           },
         }}
         href={item.repo}

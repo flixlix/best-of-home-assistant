@@ -3,10 +3,11 @@ import { CustomAlert, BestOfHAStore } from "./store.d";
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 import { merge } from "lodash";
+import { ThemeMode } from "@/types/ThemeMode";
 
 const initialState = {
   alert: { type: "info", message: "", open: false, duration: 3000 } as CustomAlert,
-  theme: "light" as "light" | "dark",
+  theme: "light" as ThemeMode,
 };
 export const useMyStore = create<BestOfHAStore>()(
   devtools(
@@ -23,10 +24,10 @@ export const useMyStore = create<BestOfHAStore>()(
               state.alert.duration = alert.duration ?? 3000;
             })
           ),
-        setTheme: (theme: "light" | "dark") =>
+        setTheme: (theme) =>
           set(
             produce((state: BestOfHAStore) => {
-              state.theme = theme;
+              state.theme = theme as ThemeMode;
             })
           ),
         // @ts-ignore

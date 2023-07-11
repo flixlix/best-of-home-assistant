@@ -14,14 +14,10 @@ import LoadingState from "@/components/LoadingState/LoadingState";
 import { useRouter } from "next/router";
 
 export default function Integrations({
-  toggleTheme,
-  currTheme,
   integrations,
   count,
   fetchError,
 }: {
-  toggleTheme: () => void;
-  currTheme: PaletteMode;
   integrations: Project[];
   count: number;
   fetchError?: string;
@@ -60,7 +56,7 @@ export default function Integrations({
 
   return (
     <Stack gap={2}>
-      <Header toggleTheme={toggleTheme} currTheme={currTheme} currentLinkIndex={0} />
+      <Header currentLinkIndex={0} />
       <PageContainer
         sx={{
           display: "flex",

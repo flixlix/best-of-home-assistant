@@ -13,14 +13,10 @@ import HeadingPage from "@/components/HeadingPage/HeadingPage";
 import LoadingState from "@/components/LoadingState/LoadingState";
 
 export default function Themes({
-  toggleTheme,
-  currTheme,
   themes,
   count,
   fetchError,
 }: {
-  toggleTheme: () => void;
-  currTheme: PaletteMode;
   themes: Project[];
   count: number;
   fetchError?: string;
@@ -57,7 +53,7 @@ export default function Themes({
 
   return (
     <Stack gap={2}>
-      <Header toggleTheme={toggleTheme} currTheme={currTheme} currentLinkIndex={3} />
+      <Header currentLinkIndex={3} />
       <PageContainer
         sx={{
           display: "flex",
