@@ -9,6 +9,7 @@ import { Project } from "@/types/Project";
 import { PostgrestError } from "@supabase/supabase-js";
 import Error from "next/error";
 import fetchDbProjectRow from "@/utils/fetchDbProjectRow";
+import { useRouter } from "next/router";
 
 interface Props {
   gitRepoUrl: string;
@@ -34,9 +35,10 @@ export default function Blog({ path, error, project }: Props) {
     fetchDbProject();
   }, []); */
 
-  console.log(project)
+  console.log(project);
+  const router = useRouter();
 
-  if (error || !project) {
+  if (error || !project || router.isFallback) {
     return (
       <Error statusCode={404} title="Project not found">
         <Typography variant="h1">Project not found</Typography>
@@ -64,7 +66,16 @@ export default function Blog({ path, error, project }: Props) {
   );
 }
 
-export async function getServerSideProps({ params }: { params: any }) {
+export async function getStaticProps({ params }: { params: any }) {
   const path = params.slug?.join("/");
   return fetchDbProjectRow(path, supabase);
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: [
+      "/blog/flixlix/power-flow-card-plus",
+    ],
+    fallback: false,
+  };
 }
