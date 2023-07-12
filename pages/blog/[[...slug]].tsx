@@ -72,10 +72,19 @@ export async function getStaticProps({ params }: { params: any }) {
 }
 
 export async function getStaticPaths() {
+  const { data, error } = await supabase.from("best-of-ha").select("github_id");
+  if (error) {
+    console.error(error);
+  }
+  if (!data) {
+    return {
+      paths: [],
+      fallback: true,
+    };
+  }
+
   return {
-    paths: [
-      "/blog/flixlix/power-flow-card-plus",
-    ],
+    paths: [...data.map((project: { github_id: any }) => `/blog/${project.github_id}`)],
     fallback: false,
   };
 }
