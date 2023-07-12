@@ -12,13 +12,14 @@ import Pagination from "@/components/Pagination/Pagination";
 import HeadingPage from "@/components/HeadingPage/HeadingPage";
 import LoadingState from "@/components/LoadingState/LoadingState";
 import { useRouter } from "next/router";
+import fetchDbProjects from "@/utils/fetchDbProjects";
 
 export default function Integrations({
-  integrations,
+  projects,
   count,
   fetchError,
 }: {
-  integrations: Project[];
+  projects: Project[];
   count: number;
   fetchError?: string;
 }) {
@@ -36,7 +37,7 @@ export default function Integrations({
     }
   }, [fetchError, setAlert]);
 
-  const [paginatedIntegrations, setPaginatedIntegrations] = React.useState(integrations);
+  const [paginatedIntegrations, setPaginatedIntegrations] = React.useState(projects);
 
   const [page, setPage] = React.useState(1);
 
@@ -64,14 +65,14 @@ export default function Integrations({
           gap: 2,
         }}
       >
-        {integrations || router.isFallback ? (
+        {projects || router.isFallback ? (
           <>
             <HeadingPage
               title={"Integrations"}
               subtitle={"Extend Home Assistant's functionality with additional devices/services"}
               count={count}
             />
-            <FilterSearch projects={integrations} setFilteredProjects={setFilteredIntegrations} />
+            <FilterSearch projects={projects} setFilteredProjects={setFilteredIntegrations} />
             <Grid
               container
               spacing={2}
@@ -107,24 +108,5 @@ export default function Integrations({
 }
 
 export async function getStaticProps() {
-  const {
-    data: integrations,
-    count,
-    error,
-  } = await supabase.from("best-of-list").select("*", { count: "exact" }).eq("category", "integration");
-
-  if (error) {
-    console.error("Error fetching data from Supabase:", error);
-    return {
-      props: {
-        fetchError: error.message || error,
-      },
-    };
-  }
-  return {
-    props: {
-      integrations,
-      count,
-    },
-  };
+  return fetchDbProjects("integration", supabase);
 }

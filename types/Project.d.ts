@@ -1,6 +1,7 @@
 export type Project = {
     github_id: string;
     id: number;
+    labels: string[];
     name: string;
     description: string;
     category: string;

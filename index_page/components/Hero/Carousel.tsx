@@ -28,6 +28,7 @@ export default function Carousel({ activeStep, setActiveStep, featuredProjects }
   const handleStepChange = (step: number) => {
     setActiveStep(step);
   };
+
   return (
     <Box
       sx={{

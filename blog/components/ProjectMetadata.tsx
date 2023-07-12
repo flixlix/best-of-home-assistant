@@ -13,7 +13,6 @@ interface ProjectMetadataProps {
 }
 
 export default function ProjectMetadata({ project }: ProjectMetadataProps) {
-  console.log(project);
   return (
     <Stack gap={2}>
       <Stack direction="row" justifyContent="space-between" alignItems={"center"}>

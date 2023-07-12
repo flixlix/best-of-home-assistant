@@ -1,6 +1,6 @@
 import PageContainer from "@/layout/PageContainer";
 import { theme } from "@/styles/theme";
-import { Alert, AlertTitle, Box, Grid, Paper, Stack, Typography } from "@mui/material";
+import { Alert, AlertTitle, Box, Chip, Grid, Paper, Stack, Typography } from "@mui/material";
 import React from "react";
 import ProjectMetadata from "./components/ProjectMetadata";
 import { Project } from "@/types/Project";
@@ -14,6 +14,7 @@ type BlogLayoutProps = {
 };
 
 export default function BlogLayout({ path, project }: BlogLayoutProps) {
+  console.log(typeof project.labels)
   return (
     <PageContainer>
       <Stack gap={4}>
@@ -41,6 +42,15 @@ export default function BlogLayout({ path, project }: BlogLayoutProps) {
           <Typography variant="body1" sx={{ color: "text.primary" }}>
             {project.description}
           </Typography>
+
+          {project.labels && project.labels.length > 0 && (
+            <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
+              {project.labels.map((label) => (
+                <Chip key={label} label={label} />
+              ))}
+            </Box>
+          )}
+
           <Alert severity="warning">
             <AlertTitle>Warning</AlertTitle>
             This page is still under heavy construction. Please check back for new features and updates.

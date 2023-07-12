@@ -38,8 +38,9 @@ export default function FilterSearch({ projects, setFilteredProjects }: FilterSe
   ];
   const [sort, setSort] = useState(options[0].value);
   const fuse = new Fuse(projects, {
-    keys: ["name", "description", "github_id"],
-    threshold: 0.3,
+    keys: ["name", "description", "github_id", "labels"],
+    threshold: 0.1,
+    distance: 30,
     ignoreLocation: true,
   });
 

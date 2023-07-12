@@ -8,6 +8,7 @@ import { ThemeMode } from "@/types/ThemeMode";
 const initialState = {
   alert: { type: "info", message: "", open: false, duration: 3000 } as CustomAlert,
   theme: "light" as ThemeMode,
+  showBadges: false,
 };
 export const useMyStore = create<BestOfHAStore>()(
   devtools(
@@ -28,6 +29,12 @@ export const useMyStore = create<BestOfHAStore>()(
           set(
             produce((state: BestOfHAStore) => {
               state.theme = theme as ThemeMode;
+            })
+          ),
+        setShowBadges: (showBadges) =>
+          set(
+            produce((state: BestOfHAStore) => {
+              state.showBadges = showBadges as boolean;
             })
           ),
         // @ts-ignore

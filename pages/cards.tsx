@@ -12,8 +12,9 @@ import Pagination from "@/components/Pagination/Pagination";
 import HeadingPage from "@/components/HeadingPage/HeadingPage";
 import LoadingState from "@/components/LoadingState/LoadingState";
 import { NextRequest, NextResponse } from "next/server";
+import fetchDbProjects from "@/utils/fetchDbProjects";
 
-export default function Cards({ cards, count, fetchError }: { cards: Project[]; count: number; fetchError?: string }) {
+export default function Cards({ projects, count, fetchError }: { projects: Project[]; count: number; fetchError?: string }) {
   const [itemsPerPage, setItemsPerPage] = React.useState(24);
   const [pagesNumber, setPagesNumber] = React.useState(Math.ceil(count / itemsPerPage));
 
@@ -28,7 +29,7 @@ export default function Cards({ cards, count, fetchError }: { cards: Project[]; 
     }
   }, [fetchError, setAlert]);
 
-  const [paginatedCards, setPaginatedCards] = React.useState(cards);
+  const [paginatedCards, setPaginatedCards] = React.useState(projects);
 
   const [page, setPage] = React.useState(1);
 
@@ -54,14 +55,14 @@ export default function Cards({ cards, count, fetchError }: { cards: Project[]; 
           gap: 2,
         }}
       >
-        {cards ? (
+        {projects ? (
           <>
             <HeadingPage
               title={"Cards"}
               subtitle={"Customize the look and feel of your Home Assistant UI with these Lovelace cards"}
               count={count}
             />
-            <FilterSearch projects={cards} setFilteredProjects={setFilteredCards} />
+            <FilterSearch projects={projects} setFilteredProjects={setFilteredCards} />
             <Grid
               container
               spacing={2}
@@ -105,15 +106,5 @@ export default function Cards({ cards, count, fetchError }: { cards: Project[]; 
 }
 
 export async function getStaticProps() {
-  const {
-    data: cards,
-    count,
-    error,
-  } = await supabase.from("best-of-list").select("*", { count: "exact" }).eq("category", "plugin");
-
-  if (error) {
-    console.error("Error fetching data from Supabase:", error);
-    return { props: { fetchError: error.message || error } };
-  }
-  return { props: { cards, count } };
+  return fetchDbProjects("plugin", supabase);
 }
