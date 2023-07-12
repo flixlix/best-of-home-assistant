@@ -14,7 +14,15 @@ import LoadingState from "@/components/LoadingState/LoadingState";
 import { NextRequest, NextResponse } from "next/server";
 import fetchDbProjects from "@/utils/fetchDbProjects";
 
-export default function Cards({ projects, count, fetchError }: { projects: Project[]; count: number; fetchError?: string }) {
+export default function Cards({
+  projects,
+  count,
+  fetchError,
+}: {
+  projects: Project[];
+  count: number;
+  fetchError?: string;
+}) {
   const [itemsPerPage, setItemsPerPage] = React.useState(24);
   const [pagesNumber, setPagesNumber] = React.useState(Math.ceil(count / itemsPerPage));
 

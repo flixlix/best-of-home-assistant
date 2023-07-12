@@ -1,4 +1,5 @@
 export type Project = {
+    path: any;
     github_id: string;
     id: number;
     labels: string[];
