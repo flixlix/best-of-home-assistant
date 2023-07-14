@@ -6,7 +6,7 @@ export default async function fetchDbProjects(category: string | string[], supab
     data: projects,
     count,
     error,
-  } = await supabase.from("best-of-ha").select("*", { count: "exact" }).eq("category", category);
+  } = await supabase.from("home-assistant-list").select("*", { count: "exact" }).eq("category", category);
 
   if (error) {
     console.error("Error fetching data from Supabase:", error);

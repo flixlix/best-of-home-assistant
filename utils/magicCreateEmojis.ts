@@ -152,6 +152,8 @@ const emojis: Emojis = {
   "inbox tray": "📥",
   "package": "📦",
   "video game": "🎮",
+  "woman health worker": "👩‍⚕️",
+  "snowflake": "❄️",
 };
 
 export default function createEmojisFromString(string: string): string {

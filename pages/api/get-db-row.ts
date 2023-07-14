@@ -14,7 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     const { data: project, error: fetchError } = await supabase
-      .from("best-of-ha")
+      .from("home-assistant-list")
       .select("*")
       .eq("github_id", path)
       .single();
