@@ -2,7 +2,7 @@ import { SupabaseClient } from "@supabase/supabase-js";
 import parseLabelsStrToArr from "./parseLabelsStrToArr";
 
 export default async function fetchDbProjectRow(path: string | string[], supabase: SupabaseClient) {
-  const { data: project, error } = await supabase.from("best-of-ha").select("*").eq("github_id", path).single();
+  const { data: project, error } = await supabase.from("home-assistant-list").select("*").eq("github_id", path).single();
 
   if (error) {
     console.error("Error fetching data from Supabase:", error);

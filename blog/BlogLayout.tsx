@@ -14,7 +14,7 @@ type BlogLayoutProps = {
 };
 
 export default function BlogLayout({ path, project }: BlogLayoutProps) {
-  console.log(typeof project.labels)
+  console.log(project)
   return (
     <PageContainer>
       <Stack gap={4}>
