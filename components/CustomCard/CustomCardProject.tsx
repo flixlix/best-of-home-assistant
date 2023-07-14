@@ -17,7 +17,8 @@ export default function CustomCardProject({ project }: CustomCardProjectProps) {
 
   return (
     <CustomCardBase
-      href={`/blog/${project.github_id}`}
+      href={`${project.github_url}`}
+      openNewTab
       height={130}
       topChildren={<Badges project={project} />}
     >

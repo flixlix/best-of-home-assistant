@@ -13,6 +13,7 @@ import MDRender from "@/blog/components/MDRender";
 import BlogLayout from "@/blog/BlogLayout";
 import supabase from "@supabase";
 import { Project } from "@/types/Project";
+import Error from "next/error";
 
 interface Props {
   gitRepoUrl: string;
@@ -23,6 +24,9 @@ interface Props {
 }
 
 export default function Blog({ gitRepoUrl, toggleTheme, currTheme, path, project }: Props) {
+  if (!project || !project.github_id || !project.github_url || !project.name) {
+    return <Error statusCode={404} />;
+  }
   return (
     <>
       <Stack
