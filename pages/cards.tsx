@@ -12,17 +12,14 @@ import Pagination from "@/components/Pagination/Pagination";
 import HeadingPage from "@/components/HeadingPage/HeadingPage";
 import LoadingState from "@/components/LoadingState/LoadingState";
 import { NextRequest, NextResponse } from "next/server";
+import fetchDbProjects from "@/utils/fetchDbProjects";
 
 export default function Cards({
-  toggleTheme,
-  currTheme,
-  cards,
+  projects,
   count,
   fetchError,
 }: {
-  toggleTheme: () => void;
-  currTheme: PaletteMode;
-  cards: Project[];
+  projects: Project[];
   count: number;
   fetchError?: string;
 }) {
@@ -40,7 +37,7 @@ export default function Cards({
     }
   }, [fetchError, setAlert]);
 
-  const [paginatedCards, setPaginatedCards] = React.useState(cards);
+  const [paginatedCards, setPaginatedCards] = React.useState(projects);
 
   const [page, setPage] = React.useState(1);
 
@@ -58,7 +55,7 @@ export default function Cards({
 
   return (
     <Stack gap={2}>
-      <Header toggleTheme={toggleTheme} currTheme={currTheme} currentLinkIndex={1} />
+      <Header currentLinkIndex={1} />
       <PageContainer
         sx={{
           display: "flex",
@@ -66,14 +63,14 @@ export default function Cards({
           gap: 2,
         }}
       >
-        {cards ? (
+        {projects ? (
           <>
             <HeadingPage
               title={"Cards"}
               subtitle={"Customize the look and feel of your Home Assistant UI with these Lovelace cards"}
               count={count}
             />
-            <FilterSearch projects={cards} setFilteredProjects={setFilteredCards} />
+            <FilterSearch projects={projects} setFilteredProjects={setFilteredCards} />
             <Grid
               container
               spacing={2}
@@ -83,11 +80,19 @@ export default function Cards({
                 md: 3,
               }}
             >
-              {paginatedCards.map((integration) => (
-                <Grid item key={integration.id} xs={1}>
-                  <CustomCardProject project={integration} />
+              {paginatedCards.length === 0 ? (
+                <Grid item xs={12}>
+                  <Typography variant="body2" color="text.secondary">
+                    No cards found
+                  </Typography>
                 </Grid>
-              ))}
+              ) : (
+                paginatedCards.map((integration) => (
+                  <Grid item key={integration.id} xs={1}>
+                    <CustomCardProject project={integration} />
+                  </Grid>
+                ))
+              )}
             </Grid>
             {pagesNumber > 1 && (
               <Pagination
@@ -109,15 +114,5 @@ export default function Cards({
 }
 
 export async function getStaticProps() {
-  const {
-    data: cards,
-    count,
-    error,
-  } = await supabase.from("best-of-list").select("*", { count: "exact" }).eq("category", "plugin");
-
-  if (error) {
-    console.error("Error fetching data from Supabase:", error);
-    return { props: { fetchError: error.message || error } };
-  }
-  return { props: { cards, count } };
+  return fetchDbProjects("plugin", supabase);
 }

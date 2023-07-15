@@ -11,17 +11,14 @@ import FilterSearch from "@/components/FilterSearch/FilterSearch";
 import Pagination from "@/components/Pagination/Pagination";
 import HeadingPage from "@/components/HeadingPage/HeadingPage";
 import LoadingState from "@/components/LoadingState/LoadingState";
+import fetchDbProjects from "@/utils/fetchDbProjects";
 
 export default function Themes({
-  toggleTheme,
-  currTheme,
-  themes,
+  projects,
   count,
   fetchError,
 }: {
-  toggleTheme: () => void;
-  currTheme: PaletteMode;
-  themes: Project[];
+  projects: Project[];
   count: number;
   fetchError?: string;
 }) {
@@ -39,7 +36,7 @@ export default function Themes({
     }
   }, [fetchError, setAlert]);
 
-  const [paginatedThemes, setPaginatedThemes] = React.useState(themes);
+  const [paginatedThemes, setPaginatedThemes] = React.useState(projects);
 
   const [page, setPage] = React.useState(1);
 
@@ -57,7 +54,7 @@ export default function Themes({
 
   return (
     <Stack gap={2}>
-      <Header toggleTheme={toggleTheme} currTheme={currTheme} currentLinkIndex={3} />
+      <Header currentLinkIndex={3} />
       <PageContainer
         sx={{
           display: "flex",
@@ -65,14 +62,14 @@ export default function Themes({
           gap: 2,
         }}
       >
-        {themes ? (
+        {projects ? (
           <>
             <HeadingPage
               title={"Themes"}
               subtitle={"Customize the look and feel of your Home Assistant UI with these themes"}
               count={count}
             />
-            <FilterSearch projects={themes} setFilteredProjects={setFilteredThemes} />
+            <FilterSearch projects={projects} setFilteredProjects={setFilteredThemes} />
             <Grid
               container
               spacing={2}
@@ -108,24 +105,5 @@ export default function Themes({
 }
 
 export async function getStaticProps() {
-  const {
-    data: themes,
-    count,
-    error,
-  } = await supabase.from("best-of-list").select("*", { count: "exact" }).eq("category", "theme");
-
-  if (error) {
-    console.error("Error fetching data from Supabase:", error);
-    return {
-      props: {
-        fetchError: error.message || error,
-      },
-    };
-  }
-  return {
-    props: {
-      themes,
-      count,
-    },
-  };
+  return fetchDbProjects("theme", supabase);
 }

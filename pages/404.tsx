@@ -3,10 +3,10 @@ import Header from "@/components/Header/Header";
 import PageContainer from "@/layout/PageContainer";
 import { Box, Button, PaletteMode, Stack, Typography } from "@mui/material";
 
-export default function Custom404({ toggleTheme, currTheme }: { toggleTheme: () => void; currTheme: PaletteMode }) {
+export default function Custom404() {
   return (
     <Stack gap={2} height={"100vh"} boxSizing={"border-box"}>
-      <Header toggleTheme={toggleTheme} currTheme={currTheme} />
+      <Header />
       <Box
         sx={{
           display: "flex",

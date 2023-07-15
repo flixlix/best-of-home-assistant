@@ -11,17 +11,14 @@ import FilterSearch from "@/components/FilterSearch/FilterSearch";
 import Pagination from "@/components/Pagination/Pagination";
 import HeadingPage from "@/components/HeadingPage/HeadingPage";
 import LoadingState from "@/components/LoadingState/LoadingState";
+import fetchDbProjects from "@/utils/fetchDbProjects";
 
 export default function Scripts({
-  toggleTheme,
-  currTheme,
-  scripts,
+  projects,
   count,
   fetchError,
 }: {
-  toggleTheme: () => void;
-  currTheme: PaletteMode;
-  scripts: Project[];
+  projects: Project[];
   count: number;
   fetchError?: string;
 }) {
@@ -39,7 +36,7 @@ export default function Scripts({
     }
   }, [fetchError, setAlert]);
 
-  const [paginatedScripts, setPaginatedScripts] = React.useState(scripts);
+  const [paginatedScripts, setPaginatedScripts] = React.useState(projects);
 
   const [page, setPage] = React.useState(1);
 
@@ -57,7 +54,7 @@ export default function Scripts({
 
   return (
     <Stack gap={2}>
-      <Header toggleTheme={toggleTheme} currTheme={currTheme} currentLinkIndex={2} />
+      <Header currentLinkIndex={2} />
       <PageContainer
         sx={{
           display: "flex",
@@ -65,14 +62,14 @@ export default function Scripts({
           gap: 2,
         }}
       >
-        {scripts ? (
+        {projects ? (
           <>
             <HeadingPage
               title={"Scripts"}
               subtitle={"Automate your Home Assistant with these scripts and automations"}
               count={count}
             />
-            <FilterSearch projects={scripts} setFilteredProjects={setFilteredScripts} />
+            <FilterSearch projects={projects} setFilteredProjects={setFilteredScripts} />
             <Grid
               container
               spacing={2}
@@ -108,27 +105,5 @@ export default function Scripts({
 }
 
 export async function getStaticProps() {
-  const {
-    data: scripts,
-    count,
-    error,
-  } = await supabase
-    .from("best-of-list")
-    .select("*", { count: "exact" })
-    .in("category", ["appdaemon", "python_script"]);
-
-  if (error) {
-    console.error("Error fetching data from Supabase:", error);
-    return {
-      props: {
-        fetchError: error.message || error,
-      },
-    };
-  }
-  return {
-    props: {
-      scripts,
-      count,
-    },
-  };
+  return fetchDbProjects(["others"], supabase);
 }
