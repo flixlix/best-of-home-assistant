@@ -4,7 +4,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import getTheme from "@/styles/theme";
-import { Alert, Box, Snackbar, useMediaQuery } from "@mui/material";
+import { Alert, Box, Snackbar } from "@mui/material";
 import { useMyStore } from "@/store/store";
 import { Analytics } from "@vercel/analytics/react";
 import { useRouter } from "next/router";
@@ -12,7 +12,6 @@ import { DefaultSeo } from "next-seo";
 
 export default function App({ Component, pageProps }: AppProps) {
   const { alert, setAlert, theme: themeMode } = useMyStore();
-
   const theme = getTheme(themeMode);
 
   const calledOnce = React.useRef(false);
