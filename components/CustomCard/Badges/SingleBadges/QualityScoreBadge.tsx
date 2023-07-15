@@ -6,7 +6,7 @@ interface QualityScoreBadgeProps {
   score: number;
 }
 
-export default function QualityScoreBadge({ score }: QualityScoreBadgeProps) {
+export default function QualityScoreBadge({}: QualityScoreBadgeProps) {
   // return <SingleBadge number={score ?? 0} icon={<WorkspacePremiumOutlined fontSize="small" color="primary" />} />;
-  return <span></span>
+  return <span></span>;
 }

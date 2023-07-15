@@ -46,8 +46,7 @@ export default function CustomCardProject({ project }: CustomCardProjectProps) {
   return (
     <CustomCardBase
       href={`/blog/${project.github_id}`}
-      height={showBadges ? 200 : 130}
-      topChildren={<Badges project={project} />}
+      height={showBadges ? 180 : 110}
       bottomChildren={
         showBadges && (
           <Stack direction="row" gap={1} sx={{ maxWidth: "100%", overflowX: "clip", overflowY: "hidden" }}>
@@ -56,18 +55,21 @@ export default function CustomCardProject({ project }: CustomCardProjectProps) {
         )
       }
     >
-      <Typography
-        variant="h5"
-        sx={{
-          textOverflow: "ellipsis",
-          overflow: "hidden",
-          display: "-webkit-box",
-          WebkitLineClamp: 1,
-          WebkitBoxOrient: "vertical",
-        }}
-      >
-        {createEmojisFromString(name)}
-      </Typography>
+      <Stack direction="row" justifyContent="space-between" alignItems={"center"}>
+        <Typography
+          variant="h5"
+          sx={{
+            textOverflow: "ellipsis",
+            overflow: "hidden",
+            display: "-webkit-box",
+            WebkitLineClamp: 1,
+            WebkitBoxOrient: "vertical",
+          }}
+        >
+          {createEmojisFromString(name)}
+        </Typography>
+        <Badges project={project} />
+      </Stack>
       <Typography
         variant="body2"
         color={"grey.800"}
