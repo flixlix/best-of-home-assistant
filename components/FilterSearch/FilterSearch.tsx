@@ -21,16 +21,6 @@ export default function FilterSearch({ projects, setFilteredProjects }: FilterSe
   const debouncedSearch = useDebounce(search, 500);
   const options = [
     {
-      value: "project_score",
-      label: "Project Score",
-      icon: <WorkspacePremium />,
-    },
-    {
-      value: "download_count",
-      label: "Most Downloads",
-      icon: <Download />,
-    },
-    {
       value: "star_count",
       label: "Most Stars",
       icon: <Star />,
@@ -99,6 +89,7 @@ export default function FilterSearch({ projects, setFilteredProjects }: FilterSe
         value={sort}
         onChange={(e) => setSort(e.target.value as string)}
         sx={{
+          display: "none",
           "& .MuiSelect-icon": {
             color: themeMode === "light" ? theme.palette.text.primary : "#fff",
           },
