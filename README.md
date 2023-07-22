@@ -4,7 +4,7 @@
 
 Welcome to the Home of **Best of Home Assistant**!
 
-This repository contains the source code for the website [Best of Home Assistant](https://best-of-home-assistant.com/).
+This repository contains the source code of the website [Best of Home Assistant](https://best-of-home-assistant.com/).
 
 <img width="1499" alt="Home Page" src="https://github.com/flixlix/best-of-home-assistant/assets/61006057/d715647b-c422-42a0-8032-7e7c3603882a">
 
