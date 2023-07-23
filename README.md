@@ -2,7 +2,7 @@
 
 # Best of Home Assistant
 
-Welcome to the Home of **Best of Home Assistant**!
+Welcome to the Home of **Best of Home Assistant**.
 
 This repository contains the source code of the website [Best of Home Assistant](https://best-of-home-assistant.com/).
 
