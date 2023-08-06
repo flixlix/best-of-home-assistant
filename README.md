@@ -1,6 +1,6 @@
 [![ko-fi support](https://img.shields.io/badge/support-me-ff5e5b?style=flat-square&logo=ko-fi)](https://ko-fi.com/flixlix)
 
-# Best of Home Assistant
+# Best of Home Assistant (Website)
 
 Welcome to the Home of **Best of Home Assistant**.
 
