@@ -14,7 +14,6 @@ This repository contains the source code of the website [Best of Home Assistant]
 
 <img width="1495" alt="Integrations Page Dark Mode" src="https://github.com/flixlix/best-of-home-assistant/assets/61006057/f32b619f-8472-4128-94ab-ca804b412ff5">
 
-
 ## Support
 
 If you want to support this project, feel free to buy me a coffee! Thank you in advance! 🥳
