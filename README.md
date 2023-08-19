@@ -17,6 +17,7 @@ This repository contains the source code of the website [Best of Home Assistant]
 
 ## Support
 
+
 If you want to support this project, feel free to buy me a coffee! Thank you in advance! 🥳
 
 [![ko-fi support](https://img.shields.io/badge/support-me-ff5e5b?style=flat-square&logo=ko-fi)](https://ko-fi.com/flixlix)
